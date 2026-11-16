@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Your account · Anchor</title>
+    <link rel="icon" href="/brand/anchor.svg" />
+    <link rel="stylesheet" href="/admin.css" />
+    <script src="/session.js" defer></script>
+    <script src="/passwords.js" defer></script>
+    <script src="/confirm.js" defer></script>
+    <script src="/avatar.js" defer></script>
+    <script src="/account.js" defer></script>
+  </head>
+  <body>
+    <header class="admin-top">
+      <a class="admin-brand" href="/"
+        ><img src="/brand/anchor.svg" alt="" />Anchor</a
+      ><nav class="auth-nav" aria-label="Account"><a href="/">Dashboard</a></nav>
+    </header>
+    <aside id="http-note" class="http-note" aria-label="Connection security" hidden>
+      HTTP LAN mode is enabled. Your password and session travel over an
+      unencrypted connection. Prefer Tailscale or HTTPS.
+    </aside>
+    <main class="account-wrap">
+      <p class="eyebrow">Your private app dashboard</p>
+      <h1 id="heading">Connecting to Anchor…</h1>
+      <p id="intro" class="lead"></p>
+      <div id="message" class="message" role="status" hidden></div>
+      <form id="setup" class="card" hidden>
+        <p class="eyebrow">Create your administrator</p>
+        <h2>Claim Anchor and create your administrator</h2>
+        <label class="field"
+          >One-time setup code<input
+            id="setup-token"
+            type="password"
+            autocomplete="off"
+            required
+          /><small
+            >Copy the one-time setup code from your container logs (Docker: <code>docker compose logs anchor</code>) or the local launcher's output. It prevents someone else claiming your administrator account and expires after this step. You can also read the setup-token file in your configuration directory.</small
+          ></label
+        ><label class="field"
+          >Display name<input
+            id="setup-name"
+            autocomplete="name"
+            maxlength="120"
+            required /></label
+        ><label class="field"
+          >Local login<input
+            id="setup-username"
+            autocomplete="username"
+            maxlength="120"
+            required /></label
+        ><label class="field"
+          >Password<input
+            id="setup-password"
+            type="password"
+            autocomplete="new-password"
+            maxlength="1024"
+            required data-password-warning="setup-password-warning" aria-describedby="setup-password-warning" /><small id="setup-password-warning" class="password-warning" role="status" hidden>Weak password: fewer than 12 characters. Consider using at least 12 characters.</small></label
+        ><button class="primary" type="submit">Create administrator</button>
+      </form>
+      <form id="login" class="card" hidden>
+        <h2>Local sign-in</h2>
+        <label class="field"
+          >Local login<input
+            id="username"
+            autocomplete="username"
+            required /></label
+        ><label class="field"
+          >Password<input
+            id="password"
+            type="password"
+            autocomplete="current-password"
+            maxlength="1024"
+            required /></label
+        ><button class="primary" type="submit">Sign in</button>
+        <details>
+          <summary>Sign in automatically with Tailscale</summary>
+          <p class="help">If your administrator has set up Tailscale, connect this device to your private Tailscale network and open Anchor's HTTPS Serve address. Ask your administrator for the address and to link the email you use for Tailscale to your Anchor account.</p>
+          <p class="help">Tailscale uses the account connected on this device. A different browser profile does not change it. Automatic sign-in applies to Anchor; your other applications may still ask you to sign in.</p>
+        </details>
+      </form>
+      <section id="profile" class="card" hidden>
+        <div id="account-avatar" class="account-avatar"></div>
+        <h2 id="profile-name"></h2>
+        <p id="profile-method" class="help"></p>
+        <p id="profile-tailscale" class="help" hidden></p>
+        <div class="actions profile-actions">
+          <a class="button-link" href="/">Open dashboard</a>
+        </div>
+        <div id="account-photo"></div>
+        <p id="local-disabled" class="help" hidden>Local password sign-in is disabled for this account. Ask your administrator if you need it enabled. Your Tailscale sign-in stays active.</p>
+        <details id="local-credentials" hidden>
+          <summary>Local sign-in details</summary>
+          <form id="change-password">
+            <label class="field">Local login<input id="local-username" maxlength="120" autocomplete="username" required /></label>
+            <p id="credential-help" class="help"></p>
+            <label id="current-password-field" class="field"
+              >Current password<input
+                id="current-password"
+                type="password"
+                autocomplete="current-password"
+                required /></label
+            ><label class="field"
+              >New password<input
+                id="new-password"
+                type="password"
+                autocomplete="new-password"
+                maxlength="1024"
+                data-password-warning="new-password-warning" aria-describedby="new-password-warning" /><small id="new-password-warning" class="password-warning" role="status" hidden>Weak password: fewer than 12 characters. Consider using at least 12 characters.</small></label
+            ><button type="submit" class="primary">Save local sign-in details</button>
+          </form>
+        </details>
+        <p class="help">
+          For a forgotten local password, ask your administrator. A server
+          administrator can use the recover-admin command.
+        </p>
+        <section id="admin-controls" class="account-admin" aria-labelledby="admin-controls-title" hidden>
+          <h3 id="admin-controls-title" class="eyebrow">Administrator tools</h3>
+          <a id="admin-link" class="admin-access" href="/manage.html">
+            <svg class="admin-access-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3 4 6v6c0 4 4 7 8 9 4-2 8-5 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
+            <span><strong>Administration</strong><small>Manage applications, users, and security</small></span>
+            <svg class="admin-access-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>
+          </a>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

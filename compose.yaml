@@ -1,0 +1,18 @@
+# Local-only HTTP example. Tailscale or an HTTPS proxy is preferred for real use.
+services:
+  anchor:
+    build: .
+    image: anchor:local
+    ports:
+      - "127.0.0.1:18080:8080"
+    environment:
+      ANCHOR_MODE: lan
+      ANCHOR_ALLOW_HTTP: "1"
+      ANCHOR_PUBLIC_URL: http://127.0.0.1:18080
+      ANCHOR_LISTEN: 0.0.0.0:8080
+      ANCHOR_CONFIG_DIR: /config
+    volumes:
+      - anchor-data:/config
+    stop_grace_period: 35s
+volumes:
+  anchor-data:

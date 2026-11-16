@@ -1,0 +1,17 @@
+# Import with Administration > Import & export. Accounts and keys are managed separately.
+schema_version: 1
+dashboard:
+  title: Anchor
+  subtitle: Your self-hosted applications
+  contact: the administrator
+  check_interval: 60s
+  sections: [Photos, Media, Tools]
+  apps:
+    - id: photos
+      name: Photos
+      url: https://photos.example.test/
+      description: Your photo library
+      section: Photos
+      icon: immich
+      access: [everyone]
+      check: off

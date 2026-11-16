@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{.Name}}</title>
+  <meta name="theme-color" content="#f6f3ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1a22" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-title" content="{{.Name}}">
+  <link rel="icon" href="{{.Icon}}" type="image/png">
+  <link rel="apple-touch-icon" href="{{.Icon}}">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/open.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <main class="open" id="open" data-mode="{{if .Guide}}guide{{else}}gone{{end}}">
+      <img class="open-icon" src="{{.Icon}}" alt="" width="88" height="88">
+{{if .Guide}}
+      <h1>Add {{.Name}} to your home screen</h1>
+
+      <div id="steps-generic">
+        <p>Open Anchor on your phone, tap <strong>Add to home screen</strong> on {{.Name}}, and follow the steps there.</p>
+      </div>
+
+      <ol class="open-steps" id="steps-iphone" hidden>
+        <li>Tap the <strong>Share</strong> button, the square with an arrow pointing up. In Safari it's at the bottom of the screen; if you can't see it, tap the three dots first.</li>
+        <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
+        <li id="ios26-step" hidden>Switch <strong>Open as Web App</strong> off.</li>
+        <li>Tap <strong>Add</strong>.</li>
+      </ol>
+
+      <ol class="open-steps" id="steps-chrome" hidden>
+        <li>Tap the menu button (three dots) at the top right of Chrome.</li>
+        <li>Tap <strong>Add to Home screen</strong>.</li>
+        <li>Tap <strong>Add</strong> (or <strong>Create shortcut</strong>). If it asks, tap <strong>Add automatically</strong>.</li>
+      </ol>
+
+      <ol class="open-steps" id="steps-samsung" hidden>
+        <li>Tap the menu button (three lines) at the bottom right.</li>
+        <li>Tap <strong>Add page to</strong>, then <strong>Home screen</strong>.</li>
+        <li>Tap <strong>Add</strong>.</li>
+      </ol>
+
+      <div id="in-app" hidden>
+        <p>You're using the Anchor app, and phones only add shortcuts from a browser.</p>
+        <button id="browser-btn" class="btn big" type="button" hidden>Open in your browser</button>
+        <div id="browser-manual" hidden>
+          <p id="manual-lead" class="muted" hidden>Nothing happened? Do it by hand:</p>
+          <ol class="open-steps">
+            <li><strong>Copy this address.</strong>
+              <div class="copy-row">
+                <code id="browser-url"></code>
+                <button id="copy-address" class="btn" type="button">Copy</button>
+              </div>
+            </li>
+            <li>Open <strong id="browser-name">your browser</strong>. Not the Anchor app.</li>
+            <li>Paste the address into the address bar and go. That page shows the last steps.</li>
+          </ol>
+          <p class="muted small">Don't tap the address itself. Your phone would just bring you back to Anchor.</p>
+        </div>
+      </div>
+
+      <p class="muted">You'll find {{.Name}} with your other apps. Tap it any time to open {{.Name}}.</p>
+{{else}}
+      <h1>{{.Name}}</h1>
+      <p class="open-note">{{.Message}}</p>
+      <p class="muted">This page opens {{.Name}} by itself as soon as it's working again.</p>
+{{end}}
+      <p><a class="link-btn" href="/">Back to Anchor</a></p>
+    </main>
+  </div>
+</body>
+</html>

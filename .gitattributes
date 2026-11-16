@@ -1,0 +1,4 @@
+# Source SVGs use consistent line endings.
+*.svg text eol=lf
+# Vendored icons are pinned to upstream bytes, including original line endings.
+/web/icons/* -text

@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en" class="admin-page">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Administration - Anchor</title>
+    <link rel="icon" href="/brand/anchor.svg" />
+    <link rel="stylesheet" href="/admin.css" />
+    <script src="/session.js" defer></script>
+    <script src="/passwords.js" defer></script>
+    <script src="/request-view.js" defer></script>
+    <script src="/app-order.js" defer></script>
+    <script src="/confirm.js" defer></script>
+    <script src="/tailscale-test-view.js" defer></script>
+    <script src="/avatar.js" defer></script>
+    <script src="/manage.js" defer></script>
+  </head>
+  <body>
+    <header class="admin-top">
+      <div class="admin-brand">
+        <img src="/brand/anchor.svg" alt="" />Anchor
+        <span class="pill">Administration</span>
+      </div>
+      <nav class="auth-nav" aria-label="Account">
+        <a href="/">Dashboard</a><button id="open-setup" type="button" class="secondary" hidden>Setup wizard</button>
+      </nav>
+    </header>
+    <aside id="http-note" class="http-note" aria-label="Connection security" hidden>
+      HTTP LAN mode: this connection is unencrypted. Prefer Tailscale or HTTPS.
+    </aside>
+    <div class="workspace">
+      <nav class="admin-nav" aria-label="Administration">
+        <button type="button" data-panel="apps" aria-pressed="true">Applications</button>
+        <button type="button" data-panel="users" aria-pressed="false">Users &amp; groups</button>
+        <button type="button" data-panel="notifications" aria-pressed="false">Notifications</button>
+        <button type="button" data-panel="security" aria-pressed="false">Connection info</button>
+        <button type="button" data-panel="settings" aria-pressed="false">Dashboard settings</button>
+        <button type="button" data-panel="transfer" aria-pressed="false">Import &amp; export</button>
+      </nav>
+      <main>
+        <div id="message" class="message" role="status" hidden></div>
+        <div id="loading" class="card">Loading your settings...</div>
+        <div id="content" hidden>
+          <nav id="setup-wizard" class="setup-wizard" aria-label="Setup progress" hidden>
+            <div class="wizard-meta"><span id="wizard-count" class="help"></span><button id="wizard-pause" type="button" class="secondary">Exit setup</button></div>
+            <div class="wizard-line"><div class="wizard-track" aria-hidden="true"><span id="wizard-progress-fill"></span></div>
+            <ol id="wizard-steps" class="wizard-stepper"></ol></div>
+            <progress id="wizard-progress" class="visually-hidden" max="5" value="1" aria-label="Setup progress"></progress>
+          </nav>
+          <div id="wizard-body" class="wizard-body" hidden>
+            <div class="wizard-heading"><h1 id="wizard-title" tabindex="-1"></h1><button id="wizard-skip-top" type="button" class="secondary" hidden>Skip for now</button></div>
+            <p id="wizard-intro" class="lead"></p>
+          </div>
+          <section data-view="apps">
+            <p class="eyebrow">Your services, together</p>
+            <h1>Applications</h1>
+            <p class="lead">
+              Add any application with a web address. Organize tiles and decide
+              who can see them.
+            </p>
+            <div id="applications-tabs" class="applications-tabs" role="tablist" aria-label="Applications views">
+              <button id="applications-manage-tab" type="button" role="tab" aria-selected="true" aria-controls="applications-manage">Manage applications</button>
+              <button id="applications-arrange-tab" type="button" role="tab" aria-selected="false" aria-controls="applications-arrange" tabindex="-1">Arrange dashboard</button>
+            </div>
+            <div id="applications-manage" role="tabpanel" aria-labelledby="applications-manage-tab">
+            <button id="add-app" class="primary">Add application</button>
+            <div id="app-list" class="service-list"></div>
+            <form id="app-form" class="card app-builder" hidden>
+              <div class="builder-heading"><div><p class="eyebrow">Application editor</p><h2 id="app-form-title">Add application</h2></div><div class="builder-heading-actions"><span id="builder-progress" class="pill" aria-live="polite"></span><button id="toggle-builder-preview" type="button" class="secondary" aria-controls="builder-preview" aria-expanded="false" hidden>Show preview</button></div></div>
+              <nav id="builder-tabs" class="builder-steps" aria-label="Application setup steps">
+                <button type="button" data-step="-1" aria-current="step">Type</button>
+                <button type="button" data-step="0">App details</button>
+                <button type="button" data-step="1">Appearance</button>
+                <button type="button" data-step="2">Connection</button>
+                <button type="button" data-step="3">Review application</button>
+              </nav>
+              <div id="builder-layout" class="builder-layout"><div class="builder-fields">
+                <section data-app-step="-1">
+                  <div id="application-type-fields"><h3>What would you like to add?</h3>
+                  <p class="help">Choose what people can do from this tile. Each connection has its own setup, API credentials, and audience.</p>
+                  <label class="choice"><input type="radio" name="application-type" value="web" checked /><span><strong>Standard application</strong><small>Open a website, with optional welcome and phone-app instructions.</small></span></label>
+                  <label class="choice"><input type="radio" name="application-type" value="requests" /><span><strong>Seerr requests &amp; releases</strong><small>See recent requests, what is ready to watch, and upcoming shows and movies. Connect Seerr and Plex; add Sonarr or Radarr for the release calendar.</small></span></label>
+                  <label class="choice"><input type="radio" name="application-type" value="ebooks" /><span><strong>Ebook library</strong><small>Browse, search, and download ebooks inside Anchor. Connect an Audiobookshelf library.</small></span></label>
+                  </div>
+                </section>
+                <section data-app-step="0" hidden>
+                  <h3>Where should this tile take people?</h3>
+                  <p class="help">A name and web address are enough to get started. Anchor picks an icon and creates the shortcut ID for you.</p>
+                  <label class="field">Application name<input id="app-name" required maxlength="120" placeholder="e.g. Plex" /></label>
+                  <label class="field">Application URL<input id="app-url" type="url" required placeholder="https://photos.example.net/" /></label>
+                  <label class="field">Who can see it?<select id="app-audience" aria-describedby="app-audience-help"></select><small id="app-audience-help">Administrators always have access. Choose which other people or groups can use this application.</small></label>
+                  <div id="custom-access" hidden><label class="field">Custom access rules<input id="app-access" required placeholder="family, media" /><small>Comma-separated groups or user IDs. Everyone means enabled Anchor accounts.</small></label><div id="access-reference" class="help"></div></div>
+                </section>
+                <section data-app-step="1" hidden>
+                  <h3>Make it easy to recognize</h3>
+                  <label class="field">Short description<input id="app-description" maxlength="500" placeholder="Watch movies and TV together" /></label>
+                  <label class="field">Dashboard section<input id="app-section" list="sections-list" placeholder="Apps" /></label><datalist id="sections-list"></datalist>
+                  <label class="field">Icon<input id="app-icon" list="bundled-icons" placeholder="Automatically matched to the name" /><small>Icons change the tile artwork. They do not require an API key or enable an integration.</small></label><datalist id="bundled-icons"></datalist>
+                  <div id="icon-preview" class="icon-preview" hidden><img id="icon-preview-image" width="42" height="42" alt="" /><span id="icon-preview-label"></span></div>
+                  <details id="icon-browser" class="icon-browser"><summary>Browse bundled service icons</summary><label class="field">Search bundled icons<input id="icon-search" type="search" placeholder="Search by service or category" /></label><p id="icon-count" class="help" role="status"></p><div id="icon-choices" class="icon-grid"></div></details>
+                </section>
+                <section data-app-step="2" hidden>
+                  <details id="edit-application-type" hidden><summary>Application type</summary></details>
+                  <h3 id="setup-title">What happens when someone taps it?</h3>
+                  <div id="builder-requests" hidden>
+                    <p class="help">The tile opens Seerr. Its Request status button opens recent requests and a Coming up tab when Sonarr or Radarr is connected. Everyone with access to this tile sees this shared source.</p>
+                    <label class="field">Seerr server URL<input id="builder-seerr" type="url" placeholder="https://seerr.example.net" /></label><div id="builder-key-seerr" class="service-key"></div>
+                    <label class="field">Plex server URL<input id="builder-plex" type="url" placeholder="https://plex.example.net" /></label><div id="builder-key-plex" class="service-key"></div>
+                    <p class="help">For full request status and the Coming up tab, connect Sonarr for shows and Radarr for movies below. Adding separate Sonarr or Radarr dashboard tiles does not connect them to this Seerr source.</p>
+                    <details id="builder-calendar" open><summary>Episode progress &amp; Coming up</summary><p class="help">Sonarr supplies aired-episode counts, download progress and episode dates. Radarr supplies movie download status and release dates. The Coming up tab appears when either is connected and covers the next six months. These connections are optional, but without them Anchor can only report what Seerr and Plex know.</p><label class="field">Sonarr server URL<input id="builder-sonarr" type="url" /></label><div id="builder-key-sonarr" class="service-key"></div><label class="field">Radarr server URL<input id="builder-radarr" type="url" /></label><div id="builder-key-radarr" class="service-key"></div></details>
+                  </div>
+                  <div id="builder-ebooks" hidden>
+                    <p id="builder-existing-combination" class="help" hidden>This existing tile has both Seerr request status and an ebook library. Manage both connections here; both are preserved when saved.</p>
+                    <p class="help">Tapping this tile opens the ebook catalog inside Anchor. People can search by book or author and download a book to their reading app. The selected library is shared with everyone who can see this tile.</p>
+                    <details id="abs-connection-help" class="connection-help">
+                      <summary><span class="connection-help-icon" aria-hidden="true">ⓘ</span>Find your library ID and API key</summary>
+                      <div class="connection-help-body">
+                        <p><strong>Library ID</strong></p>
+                        <ol><li>Open the Audiobookshelf web app and select the library containing your ebooks.</li><li>Copy the part immediately after <code>/library/</code> in your browser's address bar. For example, in <code>https://books.example.net/library/YOUR_LIBRARY_ID/bookshelf</code>, copy only <code>YOUR_LIBRARY_ID</code>, not the library name or the full URL.</li><li>Paste it into Anchor's Library ID field.</li></ol>
+                        <p><strong>API key (Audiobookshelf 2.26 or newer)</strong></p>
+                        <ol><li>Sign into Audiobookshelf as an administrator. Open <strong>Settings → Users → API Keys</strong> and create a key named <strong>Anchor</strong>.</li><li>Select a user with access to this library and permission to download books. Make sure the key is active.</li><li>Copy the key when it is displayed and paste it into Anchor's Audiobookshelf API key field. Audiobookshelf displays it only once.</li></ol>
+                        <p class="help">Older Audiobookshelf versions: open Settings → Users, select the account, and copy its API token.</p>
+                        <p class="help"><a href="https://audiobookshelf.org/docs/documentation/server-management/api-keys/" target="_blank" rel="noopener noreferrer">Audiobookshelf API key documentation (opens in a new tab)</a></p>
+                      </div>
+                    </details>
+                    <label class="field">Audiobookshelf server URL<input id="builder-abs-server" type="url" placeholder="https://books.example.net" /></label>
+                    <label class="field">Library ID<input id="builder-abs-library" placeholder="Your Audiobookshelf library ID" /><small>Select the ebook library in Audiobookshelf and use its library ID. Each Anchor tile can connect to a different library or server.</small></label><div id="builder-key-abs" class="service-key"></div>
+                  </div>
+                  <div id="tile-behavior">
+                  <div class="experience-options">
+                    <label class="choice"><input type="radio" name="app-behavior" value="web" checked /><span><strong>Open the application</strong><small>Go straight to its web address. Best for most services.</small></span></label>
+                    <label class="choice"><input type="radio" name="app-behavior" value="guide" /><span><strong>Show a welcome guide first</strong><small>Explain how to use this service, then offer a button to open it.</small></span></label>
+                  </div>
+                  <div id="guide-fields" class="feature-fields" hidden>
+                    <p class="help">People see this guide when they tap the tile. Add practical steps such as how to sign in or connect a device.</p>
+                    <label class="field">Welcome message<textarea id="guide-intro" placeholder="Everything you need to get started."></textarea></label>
+                    <label class="field">Steps, one per line<textarea id="guide-steps" placeholder="Open the application.&#10;Sign in with your own account."></textarea></label>
+                    <div class="form-grid"><label class="field">iPhone steps (optional)<textarea id="guide-ios"></textarea></label><label class="field">Android steps (optional)<textarea id="guide-android"></textarea></label></div>
+                    <label class="field">Button label<input id="guide-label" placeholder="Open the application" /></label><label class="field">Extra note (optional)<input id="guide-note" /></label>
+                  </div>
+                  </div>
+                  <label class="choice"><input id="mobile-enabled" type="checkbox" /><span><strong>Help people use a phone app</strong><small>Add a separate “App instructions” button with store links and the server address to enter.</small></span></label>
+                  <div id="mobile-fields" class="feature-fields" hidden>
+                    <p class="help">For services with a native app. Store links help people install it; the server address tells it where your service lives.</p>
+                    <div class="form-grid"><label class="field">App Store URL (iPhone)<input id="mobile-ios" type="url" /></label><label class="field">Google Play URL (Android)<input id="mobile-android" type="url" /></label></div>
+                    <label class="field">Server address to enter in the app<input id="mobile-server" type="url" placeholder="Uses the application server when blank" /></label>
+                    <label class="field">Setup note<textarea id="mobile-note" placeholder="Sign in with the account we created for you."></textarea></label>
+                    <details><summary>Advanced: open the installed phone app</summary><p class="help">Only add launch links supported by that phone app. On a matching phone, tapping the tile tries the native app first; the welcome guide takes priority if enabled.</p><label class="field">iOS launch link<input id="mobile-iosapp" placeholder="appname://" /></label><label class="field">Android launch link<input id="mobile-androidapp" placeholder="appname://" /></label><label class="field">Open button label<input id="mobile-label" placeholder="Open the app" /></label></details>
+                  </div>
+                  <label class="choice"><input id="app-homescreen" type="checkbox" checked /><span><strong>Offer a home-screen shortcut</strong><small>Let people add a browser shortcut for this service to their phone. Shortcuts open the application directly, skipping the welcome guide.</small></span></label>
+                </section>
+                <section data-app-step="3" hidden>
+                  <div id="app-review-summary"><h3>Ready for your dashboard</h3><p id="app-review" class="help"></p><p class="help">Use the preview to try the tile and its instructions before saving. No application data changes until you save.</p></div>
+                  <details id="app-advanced"><summary>Advanced settings</summary><div class="form-grid">
+                    <label class="field wide">Shortcut ID<input id="app-id" required pattern="[a-z0-9][a-z0-9_\-]{0,63}" maxlength="64" /><small>Generated from the name. Kept when renamed so saved shortcuts still work.</small></label>
+                    <label class="field wide">Health-check URL<input id="app-check" placeholder="Blank uses application URL; off disables checks" /></label>
+                    <label class="field wide">Maintenance message<input id="app-maintenance" maxlength="500" /></label>
+                    <label class="check wide"><input id="app-disabled" type="checkbox" />Hide and disable this tile</label>
+                    <label class="check wide"><input id="app-alerts" type="checkbox" checked />Send configured outage alerts</label>
+                  </div></details>
+                </section>
+              </div>
+              <aside id="builder-preview" class="builder-preview" aria-label="Application preview"><p class="eyebrow">Live preview · not saved</p><p id="preview-section" class="help">Apps</p><div class="tile"><button id="preview-open" type="button" class="tile-link preview-open"><span class="tile-icon"><img id="preview-icon" alt="" width="48" height="48" hidden /><span id="preview-letter">A</span></span><span class="tile-text"><span id="preview-name" class="tile-name">Your application</span><span id="preview-description" class="tile-desc">A home for your service.</span></span></button><div class="tile-foot preview-foot"><button id="preview-mobile" type="button" class="get-app" hidden>App instructions</button><button id="preview-home" type="button" class="get-app" hidden>Add to home screen</button></div><div id="preview-requests-wrap" class="tile-extra" hidden><button id="preview-requests" class="req-open" type="button"><span class="req-open-text"><span class="req-open-title">Request status</span><span class="req-open-sub">Ready to watch, and what’s coming</span></span></button></div></div><p id="preview-behavior" class="help"></p><p id="preview-audience" class="help"></p></aside>
+              </div>
+            </form>
+            <dialog id="experience-preview" class="sheet" aria-labelledby="experience-title"><form method="dialog" class="sheet-close-form"><button class="icon-btn" aria-label="Close preview">×</button></form><p class="eyebrow">Preview</p><h2 id="experience-title"></h2><div id="experience-content"></div></dialog>
+            </div>
+            <div id="applications-arrange" role="tabpanel" aria-labelledby="applications-arrange-tab" hidden></div>
+          </section>
+          <section data-view="users" hidden>
+            <p class="eyebrow">A dashboard for each person</p>
+            <h1>Users &amp; groups</h1>
+            <p class="lead">
+              Create accounts, assign groups, and explicitly link Tailscale and
+              local sign-in methods.
+            </p>
+            <button id="add-user" class="primary">Add user</button>
+            <div id="user-list" class="people-list"></div>
+            <details id="user-recovery" class="card"><summary>Keep a recovery route</summary><p class="help">Keep at least one enabled administrator with a local password. Local sessions expire after 12 hours. Changes to passwords, sign-in details, groups or account status end password sessions. Name edits and unchanged saves keep sessions active. Updating your local credentials does not interrupt a Tailscale sign-in.</p><p class="help">If an administrator loses their password, stop Anchor and run this against the same configuration directory:</p><pre>anchor recover-admin YOUR_LOCAL_LOGIN</pre><p class="help">Sign in with the temporary password, then edit your own account in Users &amp; groups and save a new password. Protect the configuration directory and database backups: they contain credentials.</p></details>
+          </section>
+          <dialog id="user-dialog" class="user-dialog" aria-labelledby="user-form-title">
+            <form id="user-form">
+              <div class="user-dialog-heading">
+                <h2 id="user-form-title">Add user</h2>
+                <button id="close-user" type="button" class="secondary" aria-label="Close user form">Close</button>
+              </div>
+              <div id="user-dialog-body" class="user-dialog-body">
+              <p id="user-form-error" class="message error" role="alert" tabindex="-1" hidden></p>
+              <div id="user-photo"></div>
+              <p id="user-photo-new" class="help" hidden>Save the user first, then edit their profile photo.</p>
+              <div class="form-grid">
+                <label class="field wide">Display name<input id="user-name" required autofocus maxlength="120" /></label>
+                <label class="field">Tailscale sign-in email<input id="user-tailscale" type="email" maxlength="254" /><small>The exact email this person uses to sign in to Tailscale.</small></label>
+                <label class="field">Groups<input id="user-groups" placeholder="family, admin" /><small>Comma-separated labels. The admin group grants administration.</small></label>
+                <label class="choice wide"><input id="user-local" type="checkbox" /><span><strong>Allow local password sign-in</strong><small>Turn off to remove the saved password and end password sessions. A linked Tailscale identity is required.</small></span></label>
+                <div id="user-local-fields" class="form-grid wide">
+                  <label class="field">Local login<input id="user-username" maxlength="120" autocomplete="off" /></label>
+                  <label class="field">New local password<input id="user-password" type="password" autocomplete="new-password" maxlength="1024" data-password-warning="user-password-warning" aria-describedby="user-password-warning" /><small id="user-password-warning" class="password-warning" role="status" hidden>Weak password: fewer than 12 characters. Consider using at least 12 characters.</small><small id="user-password-help">Leave blank to keep the existing password.</small></label>
+                </div>
+                <label class="check wide"><input id="user-enabled" type="checkbox" checked />Account enabled</label>
+              </div>
+              <p id="user-id" class="help"></p>
+              </div>
+              <div class="actions user-dialog-actions">
+                <button type="submit" class="primary">Save user</button
+                ><button id="cancel-user" type="button" class="secondary">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </dialog>
+          <section data-view="notifications" hidden>
+            <p class="eyebrow">Choose your destinations</p><h1>Notifications</h1><p class="lead">Send outage alerts and problem reports through ntfy, a webhook, or both. Each destination delivers independently. Save settings before testing.</p>
+            <div id="notification-tabs" class="applications-tabs" role="tablist" aria-label="Notification clients">
+              <button id="notification-ntfy-tab" type="button" role="tab" aria-selected="true" aria-controls="notification-ntfy">ntfy</button>
+              <button id="notification-webhook-tab" type="button" role="tab" aria-selected="false" aria-controls="notification-webhook" tabindex="-1">Webhook</button>
+            </div>
+            <div id="notification-ntfy" role="tabpanel" aria-labelledby="notification-ntfy-tab">
+            <form id="notifications-form" class="card"><h2>ntfy connection</h2><p class="help">Create a topic on your ntfy server and subscribe to that same topic in the ntfy app. Anchor publishes messages to it.</p><label class="check"><input id="notify-enabled" type="checkbox" />Enable ntfy notifications</label><div class="form-grid"><label class="field">ntfy server URL<input id="notify-server" type="url" placeholder="https://ntfy.example.net" /></label><label class="field">ntfy topic<input id="notify-topic" placeholder="anchor_alerts" /></label><div id="keys-ntfy" class="service-key wide"></div><label class="check wide"><input id="notify-alerts" type="checkbox" checked />Automatic down / back alerts</label><label class="check wide"><input id="notify-reports" type="checkbox" checked />Let users report problems to this topic</label></div><p class="help">The access token must be able to publish to this topic. Leave it blank only if your server permits publishing without a token. Blank fields keep saved tokens; select Remove saved credential to clear one.</p><button type="submit" class="primary">Save ntfy settings</button></form>
+            <button id="test-ntfy" type="button" class="secondary">Send ntfy test notification</button><p id="delivery-ntfy" role="status" class="help"></p>
+            </div>
+            <div id="notification-webhook" role="tabpanel" aria-labelledby="notification-webhook-tab" hidden>
+            <form id="webhook-form" class="card">
+              <h2>Webhook connection</h2><label class="check"><input id="webhook-enabled" type="checkbox" />Enable webhook notifications</label>
+              <label class="field">Message format<select id="webhook-format"><option value="discord">Discord</option><option value="json">Generic JSON</option></select></label>
+              <div id="keys-webhook" class="service-key"></div>
+              <p class="help">For Discord, copy the webhook URL from your channel's Integrations settings. Generic JSON sends Anchor's documented event payload to an HTTPS receiver. The URL is a credential: Anchor masks it after saving and excludes it from dashboard YAML exports. Messages can include application addresses and the person reporting a problem; choose a private destination.</p>
+              <label class="check"><input id="webhook-alerts" type="checkbox" checked />Automatic down / back alerts</label>
+              <label class="check"><input id="webhook-reports" type="checkbox" checked />Send user problem reports</label>
+              <button type="submit" class="primary">Save webhook settings</button>
+            </form>
+            <button id="test-webhook" type="button" class="secondary">Send webhook test notification</button><p id="delivery-webhook" role="status" class="help"></p>
+            </div>
+          </section>
+          <section data-view="security" hidden>
+            <p class="eyebrow">Your connection to Anchor</p><h1>Connection info</h1><p class="lead">Check this browser's connection and sign-in method, or configure private access through Tailscale. Manage accounts in Users &amp; groups.</p>
+            <div id="connection-tabs" class="applications-tabs" role="tablist" aria-label="Connection views">
+              <button id="connection-overview-tab" type="button" role="tab" aria-selected="true" aria-controls="connection-overview">Overview</button>
+              <button id="connection-tailscale-tab" type="button" role="tab" aria-selected="false" aria-controls="connection-tailscale" tabindex="-1">Tailscale</button>
+            </div>
+            <div id="connection-overview" role="tabpanel" aria-labelledby="connection-overview-tab">
+            <div class="card">
+              <dl class="connection-summary">
+                <div><dt>Account</dt><dd id="connection-user"></dd></div>
+                <div><dt>Configured mode</dt><dd id="connection-mode"></dd></div>
+                <div><dt>Address in this browser</dt><dd id="connection-address"></dd></div>
+                <div><dt>Browser connection</dt><dd id="connection-transport"></dd></div>
+                <div><dt>Signed in with</dt><dd id="connection-signin"></dd></div>
+              </dl>
+              <p id="security-connection" class="help"></p>
+            </div>
+            </div>
+          <section id="connection-tailscale" data-view="tailscale" role="tabpanel" aria-labelledby="connection-tailscale-tab" hidden>
+            <h2>Private access &amp; automatic sign-in</h2>
+            <p class="lead">Use Tailscale to give people private access to Anchor and sign them in automatically. Once you link each person's Tailscale account, they'll see the groups and applications assigned to their Anchor account.</p>
+            <details class="tailscale-boundaries"><summary>How does it work?</summary><p class="help">People need access to your Tailscale network, and each person's Tailscale email must be linked to an enabled Anchor account. When they open Anchor through its Tailscale Serve address, Anchor recognizes them and applies their existing groups and permissions.</p><p class="help">Applications may still require their own reachable address and sign-in. Linking an email does not install Tailscale, invite people to your network, or change network access rules.</p></details>
+            <div class="card"><h2>Your current setup</h2>
+              <dl id="tailscale-facts" class="connection-summary"></dl>
+              <p id="tailscale-verification" class="readiness" role="status"></p>
+              <p id="tailscale-next" class="help"></p>
+              <div class="actions"><button id="start-tailscale" type="button" class="primary" aria-controls="tailscale-guide" aria-expanded="false">Set up Tailscale</button></div>
+              <p id="tailscale-later-help" class="help" hidden>You can continue with your current sign-in. Return to Administration → Connection info → Tailscale whenever you're ready. Skipping keeps any settings you've already saved.</p>
+            </div>
+            <div id="tailscale-guide" hidden>
+            <div class="card" id="tailscale-connect-step"><p class="eyebrow">Step 1</p><h2>Connect Anchor to Tailscale</h2>
+              <p>Install Tailscale on your server and the devices that will use Anchor, and give those people access to your private network. Tailscale calls this network a tailnet. Then use Serve to give Anchor a private HTTPS address.</p>
+              <p id="tailscale-connect-status" class="help"></p>
+              <p class="help">Already connected? Continue to linking people below. You can save email links and finish setup before changing your deployment; your saved progress is kept.</p>
+            <details id="serve-deployment"><summary>Show connection instructions</summary><p class="help">Choose the setup that matches your installation. Run these commands yourself in the indicated terminal; Anchor does not execute them or change your running deployment.</p>
+            <form id="tailscale-commands" class="card">
+              <h3>Serve commands</h3>
+              <label class="field">Where does Tailscale run?<select id="serve-context"><option value="host">Server</option><option value="container">Container</option><option value="dev">Local Development</option></select></label>
+              <ol id="serve-instructions" class="setup-instructions"></ol>
+              <details id="serve-platform-details">
+                <summary>Platform-specific setup notes</summary>
+                <div data-serve-platform="host">
+                  <p class="help"><strong>Linux with Docker:</strong> use host networking for Anchor (<code>--network host</code>, or <code>network_mode: host</code> in Compose) so Anchor and the server's Tailscale share localhost.</p>
+                  <p class="help"><strong>Unraid example:</strong> install the Tailscale plugin and set Anchor's Network Type to Host. If using Unraid's per-container Tailscale integration instead, choose Container.</p>
+                  <p class="help"><strong>Windows / macOS with Docker:</strong> container localhost can differ from the server's localhost. Verify that your Docker configuration shares the required loopback connection, or choose Container and share its network environment with Anchor.</p>
+                </div>
+                <div data-serve-platform="container" hidden>
+                  <p class="help"><strong>Docker Compose:</strong> set Anchor's <code>network_mode: service:tailscale</code>, replacing <code>tailscale</code> with your Tailscale service name. Preserve Tailscale's state volume and Anchor's /config volume separately.</p>
+                  <p class="help"><strong>Unraid example:</strong> its per-container Use Tailscale / Serve integration runs Tailscale in the container's network environment. Enter the container name that actually runs Tailscale.</p>
+                </div>
+                <div data-serve-platform="dev" hidden>
+                  <p class="help">The generated command uses this project's Windows PowerShell launcher, <code>dev.ps1</code>. Install Tailscale on the development PC first. The launcher preserves your data and stops its temporary Serve session when it exits.</p>
+                </div>
+              </details>
+              <div class="form-grid">
+                <label class="field">Anchor listening port<input id="serve-target-port" type="number" min="1" max="65535" value="8080" required /><small>Match the port Anchor listens on in the selected setup.</small></label>
+                <label class="field">Serve HTTPS port<input id="serve-https-port" type="number" min="1" max="65535" value="8443" required /><small>Choose a port not already used by another Serve service.</small></label>
+                <label id="serve-container-field" class="field wide" hidden>Tailscale container name<input id="serve-container" value="tailscale" maxlength="128" pattern="[A-Za-z0-9][A-Za-z0-9_.\-]*" /><small>The container running Tailscale, which shares Anchor's network environment.</small></label>
+              </div>
+              <div id="serve-environment-block">
+                <p id="serve-environment-label" class="help">Set these environment variables on the Anchor container, then restart it:</p>
+                <pre id="serve-environment"></pre>
+              </div>
+              <p id="serve-run-location" class="help"></p>
+              <p id="serve-command-error" class="message error" role="status" hidden></p>
+              <label class="field">Check existing Serve configuration<textarea id="serve-status-command" class="serve-command" rows="2" readonly spellcheck="false"></textarea></label>
+              <div class="actions"><button id="copy-serve-status" type="button" class="secondary">Copy status command</button></div>
+              <label class="field command-label">Start Serve<textarea id="serve-command" class="serve-command" rows="2" readonly spellcheck="false"></textarea></label>
+              <div class="actions"><button id="copy-serve-command" type="button" class="secondary">Copy setup command</button></div>
+              <p id="serve-copy-result" class="help" role="status"></p>
+              <p class="help">Review existing Serve settings before starting; the command can replace a mapping on the selected HTTPS port. Open the HTTPS address printed by Tailscale from a Tailscale-connected device. A LAN IP address does not supply automatic identity. Keep Funnel off.</p>
+            </form>
+            </details>
+            </div>
+            <div class="card" id="tailscale-people-step"><p class="eyebrow">Step 2</p><h2>Link people to their Anchor accounts</h2>
+              <p class="help">Use the exact email each person uses to sign into Tailscale. Their existing Anchor groups and permissions still apply. An email link is saved configuration; it is not a successful sign-in test.</p>
+              <div id="tailscale-people" class="tailscale-people"></div>
+              <p id="tailscale-save-status" class="help" role="status"></p>
+              <p class="help">Keep a local administrator password for recovery. Manage passwords and local sign-in in Users &amp; groups.</p>
+            </div>
+            <div class="card"><p class="eyebrow">Step 3</p><h2>Test sign-in and access</h2>
+              <p class="help">Check that this device can reach Anchor through Tailscale and that Anchor recognizes the correct account, groups and applications. Connect this device to Tailscale first.</p>
+              <label class="field">Anchor's Tailscale HTTPS address<input id="tailscale-address" type="url" placeholder="https://anchor.example.ts.net:8443" autocomplete="off" /><small>Copy the full HTTPS address printed by Tailscale Serve, including its port if shown.</small></label>
+              <div class="actions"><button id="open-tailscale-test" type="button" class="primary">Open Anchor through Tailscale</button><button id="copy-tailscale-address" type="button" class="secondary">Copy address</button><button id="verify-tailscale" type="button" class="secondary">Test this connection</button></div>
+              <p id="tailscale-address-result" class="help" role="status"></p>
+              <div id="tailscale-check-result" class="tailscale-test-report" role="status" aria-live="polite" hidden></div>
+              <div class="actions"><button id="tailscale-fix-connection" type="button" class="secondary">Go to Step 1: Connect Anchor</button><button id="tailscale-fix-people" type="button" class="secondary">Go to Step 2: Link people</button></div>
+              <p class="help">The test opens in another tab and reports its result here. Tailscale uses the identity connected on that device; switching browser profiles does not change it. Each person must test their own sign-in.</p>
+              <details><summary>Preview someone's configured access</summary><p class="help">Review which applications an enabled account is allowed to see. A preview does not verify that person's Tailscale connection or automatic sign-in.</p><label class="field">Person<select id="tailscale-preview-person"></select></label><button id="tailscale-preview" type="button" class="secondary">Show configured access</button><div id="tailscale-preview-result" class="tailscale-test-report" hidden></div></details>
+              <p class="help">Application availability here means permission to see it in Anchor. Open the dashboard to try an application from this device; it may still require its own sign-in.</p>
+            </div>
+            </div>
+          </section>
+          </section>
+          <dialog id="tailscale-dialog" class="user-dialog" aria-labelledby="tailscale-dialog-title">
+            <form id="tailscale-form">
+              <div class="user-dialog-heading"><h2 id="tailscale-dialog-title">Link Tailscale email</h2><button id="close-tailscale" type="button" class="secondary" aria-label="Close Tailscale email form">Close</button></div>
+              <div id="tailscale-dialog-body" class="user-dialog-body">
+                <p id="tailscale-form-error" class="message error" role="alert" tabindex="-1" hidden></p>
+                <label class="field">Person<select id="tailscale-user"></select></label>
+                <p id="tailscale-account-state" class="help"></p>
+                <label class="field">Tailscale sign-in email<input id="tailscale-email" type="email" maxlength="254" autofocus /><small>The email address this person uses to sign into Tailscale. Leave blank to remove this link; they must retain a local password.</small></label>
+                <div class="actions identity-actions" id="tailscale-identity-actions" hidden><button id="use-tailscale-identity" type="button" class="secondary" hidden>Use my current Tailscale identity</button></div>
+                <p class="help">This links an existing Anchor account. It does not create a Tailscale account or grant access to your private network. Saving your own email keeps this local session active; other local sessions for the changed account end.</p>
+                <p id="tailscale-dialog-person-state" class="help"></p>
+              </div>
+              <div class="actions user-dialog-actions"><button type="submit" class="primary">Save Tailscale identity</button><button id="cancel-tailscale" type="button" class="secondary">Cancel</button></div>
+            </form>
+          </dialog>
+          <section data-view="review" hidden>
+            <div class="card"><h2>Your setup</h2><div id="wizard-guide"></div></div>
+            <div class="card"><h2>Current connection</h2><dl class="connection-summary">
+              <div><dt>Configured mode</dt><dd id="review-connection-mode"></dd></div>
+              <div><dt>Address in this browser</dt><dd id="review-connection-address"></dd></div>
+              <div><dt>Browser connection</dt><dd id="review-connection-transport"></dd></div>
+              <div><dt>Signed in with</dt><dd id="review-connection-signin"></dd></div>
+            </dl><p id="review-connection-note" class="help"></p></div>
+            <div class="card"><h2>After setup</h2><p id="review-tailscale-status"></p><p class="help">Keep a local administrator password for recovery. Full database backups include accounts and credentials; store them privately.</p><button id="wizard-backups" type="button" class="secondary">Open backups</button></div>
+          </section>
+          <section data-view="settings" hidden>
+            <p class="eyebrow">Make it yours</p>
+            <h1>Dashboard settings</h1>
+            <p class="lead">
+              Customize the dashboard and the order of its sections.
+            </p>
+            <form id="settings-form" class="card">
+              <div class="form-grid">
+                <label class="field"
+                  >Title<input id="settings-title" required /></label
+                ><label class="field"
+                  >Help contact<input id="settings-contact" /></label
+                ><label class="field wide"
+                  >Subtitle<input id="settings-subtitle" /></label
+                ><label class="field"
+                  >Check interval<input
+                    id="settings-interval"
+                    placeholder="60s" /></label
+                ><label class="field wide"
+                  >Section order, one per line<textarea
+                    id="settings-sections"
+                  ></textarea></label
+                ><label class="field wide"
+                  >Announcement<textarea id="notice-message"></textarea></label
+                ><label class="field"
+                  >Announcement style<select id="notice-style">
+                    <option value="info">Information</option>
+                    <option value="warning">Warning</option>
+                  </select></label
+                ><label class="field"
+                  >Announcement access<input
+                    id="notice-access"
+                    placeholder="Blank means everyone"
+                /></label>
+              </div>
+              <div class="actions">
+                <button type="submit" class="primary">
+                  Save dashboard settings
+                </button>
+              </div>
+            </form>
+          </section>
+          <section data-view="transfer" hidden>
+            <p class="eyebrow">Portable configuration</p>
+            <h1>Import &amp; export</h1>
+            <p class="lead">
+              Move dashboard settings with YAML. A full backup also requires
+              your SQLite database.
+            </p>
+            <div class="card">
+              <h2>Export dashboard</h2>
+              <p class="help">
+                Includes tiles, access rules, sections, notices and integration
+                addresses. Excludes user accounts, passwords, sessions and API
+                keys. Tile URLs can themselves contain sensitive query strings;
+                review exports before sharing.
+              </p>
+              <a class="button-link" href="/api/admin/export">Download YAML</a>
+            </div>
+            <div class="card">
+              <h2>Complete database backup</h2>
+              <p class="help">
+                Includes accounts, password hashes, sessions and integration
+                keys. Store it securely. To restore, stop Anchor, preserve the
+                current database, copy the backup to your configuration
+                directory as anchor.db, then restart. Sign in and end any
+                sessions you no longer need.
+              </p>
+              <button id="download-backup" class="primary" type="button">
+                Download database backup
+              </button>
+            </div>
+            <form id="import-form" class="card">
+              <h2>Import dashboard</h2>
+              <label class="field"
+                >Choose an exported YAML file<input
+                  id="import-file"
+                  type="file"
+                  accept=".yaml,.yml,text/yaml,application/yaml" /></label
+              ><label class="field"
+                >Or paste YAML<textarea
+                  id="import-yaml"
+                  rows="10"
+                  required
+                  spellcheck="false"
+                ></textarea>
+              </label>
+              <div class="actions">
+                <button type="submit" class="primary">
+                  Validate and preview
+                </button>
+              </div>
+              <section id="import-preview" hidden>
+                <h3>Proposed replacement</h3>
+                <pre id="import-summary"></pre>
+                <p class="help">
+                  Applying replaces dashboard settings. Accounts and credentials
+                  for retained connections are preserved. Removed connections
+                  lose their scoped API credentials. User permissions must refer to
+                  users already present on this installation.
+                </p>
+                <button id="apply-import" type="button" class="primary">
+                  Apply imported dashboard
+                </button>
+              </section>
+            </form>
+          </section>
+          <footer id="setup-actions" class="setup-actions" aria-label="Anchor setup actions" hidden>
+            <div class="setup-actions-inner">
+              <div class="setup-action-context" aria-live="polite"><strong id="setup-action-title">Anchor setup</strong><span id="setup-action-detail" class="help"></span></div>
+              <div id="builder-actions" class="actions builder-actions" role="group" aria-label="Application editor actions" hidden><button id="cancel-app" type="button" class="secondary">Cancel application</button><button id="builder-back" type="button" class="secondary">Back</button><button id="builder-next" type="button" class="primary">Next: App details</button><button id="app-save" type="submit" form="app-form" class="primary" hidden>Save application</button></div>
+              <div id="wizard-footer" role="group" aria-label="Anchor setup navigation" hidden><div class="actions wizard-actions"><button id="wizard-back" type="button" class="secondary">Previous setup step</button><button id="wizard-skip" type="button" class="secondary">Set up later</button><button id="wizard-next" type="button" class="primary">Next: Applications</button></div></div>
+            </div>
+          </footer>
+        </div>
+      </main>
+    </div>
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="kind-show" viewBox="0 0 24 24">
+      <path d="M8 3l4 5 4-5"/>
+      <rect x="3" y="8" width="18" height="12" rx="2.2"/>
+      <rect x="5.6" y="10.5" width="9.2" height="7" rx="1.2"/>
+      <path d="M18 12h.01M18 15.4h.01M7 20v1.6M17 20v1.6"/>
+    </symbol>
+    <symbol id="kind-movie" viewBox="0 0 24 24">
+      <rect x="3" y="11" width="18" height="10" rx="1.5"/>
+      <path d="M3.2 7.8 19.9 4l.7 3.2L3.9 11z"/>
+      <path d="m6.5 7 3.2 2.7m1.8-3.8 3.2 2.6m1.9-3.7 3.2 2.6"/>
+    </symbol>
+  </svg>
+  </body>
+</html>

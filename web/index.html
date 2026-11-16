@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Anchor</title>
+  <meta name="description" content="All of our home apps in one place">
+  <meta name="theme-color" content="#f6f3ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e1a22" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Anchor">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/brand/anchor.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/session.js" defer></script>
+  <script src="/request-view.js" defer></script>
+  <script src="/avatar.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body data-page="dashboard">
+  <div class="page">
+    <header class="top">
+      <div class="brand">
+        <img src="/brand/anchor.svg" alt="" width="36" height="36">
+        <span id="brand-name">Anchor</span>
+      </div>
+      <div class="who" id="who" hidden>
+        <img id="who-pic" alt="" width="32" height="32" referrerpolicy="no-referrer" hidden>
+      </div>
+    </header>
+
+    <div id="admin-bar" class="admin-bar" role="region" aria-label="Dashboard preview" hidden>
+      <label>Preview as
+        <select id="preview-as"></select>
+      </label>
+      <span id="preview-note" class="muted"></span>
+    </div>
+    <div id="config-error" class="banner banner-error" role="alert" hidden></div>
+    <div id="check-problem" class="banner banner-error" role="status" hidden></div>
+    <div id="notice" class="banner notice" role="status" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg>
+      <span id="notice-text"></span>
+    </div>
+
+    <main id="main" aria-live="polite">
+      <section id="offline" class="offline" hidden>
+        <h1 id="offline-title">Anchor can't connect</h1>
+        <p id="offline-lead"></p>
+        <ol id="offline-steps" class="offline-steps">
+          <li>If you use Tailscale for this address, open the <strong>Tailscale</strong> app on this device.</li>
+          <li>Make sure it's switched <strong>on</strong> and says <strong>Connected</strong>.</li>
+          <li>Try turning Tailscale <strong>off</strong> and back <strong>on</strong>.</li>
+          <li>Come back here. Anchor reconnects by itself.</li>
+        </ol>
+        <button id="retry-btn" class="btn big" type="button">Try again</button>
+        <p id="retry-status" class="muted small"></p>
+        <p id="offline-help" class="muted"></p>
+      </section>
+
+      <div id="main-content">
+      <section class="hello">
+        <h1 id="greeting">Loading…</h1>
+        <p id="subtitle" class="muted"></p>
+      </section>
+
+      <div id="search-wrap" class="search" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input id="search" type="search" placeholder="Find an app" autocomplete="off" aria-label="Find an app">
+      </div>
+
+      <div id="sections"></div>
+      <p id="no-results" class="empty" hidden>No apps match that search.</p>
+
+      <section id="stranger" class="stranger" hidden>
+        <h2 id="stranger-title"></h2>
+        <p id="stranger-body"></p>
+        <p class="login-line" id="stranger-login" hidden></p>
+      </section>
+      </div>
+    </main>
+
+    <footer class="foot">
+      <p id="help-line"></p>
+      <button id="install-btn" class="link-btn" type="button" hidden>Add Anchor to your home screen</button>
+      <p id="ios-tip" class="muted small" hidden>Tip: to keep Anchor on your home screen, tap the Share button in Safari, then “Add to Home Screen”.</p>
+      <p id="samsung-tip" class="muted small" hidden>Tip: to keep Anchor on your home screen, tap the menu (three lines), then “Add page to” and “Home screen”.</p>
+    </footer>
+  </div>
+
+  <dialog id="app-dialog" class="sheet" aria-labelledby="sheet-title">
+    <form method="dialog" class="sheet-close-form">
+      <button class="icon-btn" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </form>
+    <div class="sheet-head">
+      <img id="sheet-icon" alt="" width="48" height="48">
+      <h2 id="sheet-title"></h2>
+    </div>
+    <div class="store-links" id="open-app-wrap" hidden>
+      <a class="btn" id="open-app-link" href="#"></a>
+    </div>
+    <ol class="steps">
+      <li id="step-install">
+        <strong>Install the app</strong>
+        <div class="store-links" id="store-links"></div>
+      </li>
+      <li>
+        <strong>When it asks for a server address, enter:</strong>
+        <div class="copy-row">
+          <code id="server-addr"></code>
+          <button id="copy-btn" class="btn" type="button">Copy</button>
+        </div>
+        <p id="sheet-note" class="muted small"></p>
+      </li>
+      <li>
+        <strong>Sign in</strong> with your username and password.
+      </li>
+    </ol>
+    <div class="sheet-alt" id="sheet-alt" hidden>
+      <strong>Prefer a shortcut?</strong>
+      <p class="muted small" id="sheet-alt-note"></p>
+      <a class="btn secondary" id="sheet-add-home" href="/">Add to home screen</a>
+    </div>
+  </dialog>
+
+  <dialog id="guide-dialog" class="sheet guide-sheet" aria-labelledby="guide-title">
+    <form method="dialog" class="sheet-close-form">
+      <button class="icon-btn" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </form>
+    <div class="sheet-head">
+      <img id="guide-icon" alt="" width="48" height="48">
+      <h2 id="guide-title"></h2>
+    </div>
+    <p id="guide-intro" class="muted guide-intro"></p>
+    <ol id="guide-steps" class="steps"></ol>
+    <section id="guide-device" class="guide-device" hidden>
+      <h3 id="guide-device-title"></h3>
+      <ol id="guide-device-steps" class="steps"></ol>
+    </section>
+    <p id="guide-note" class="muted small guide-note" hidden></p>
+    <a id="guide-action" class="btn guide-action" target="_blank" rel="noopener"></a>
+  </dialog>
+
+  <dialog id="report-dialog" class="sheet confirm" aria-labelledby="report-title">
+    <h2 id="report-title"></h2>
+    <p id="report-body" class="muted"></p>
+    <div class="confirm-actions">
+      <button id="report-send" class="btn" type="button"></button>
+      <button id="report-cancel" class="btn secondary" type="button">Cancel</button>
+    </div>
+  </dialog>
+
+  <!-- The two icons the Request status sheet marks its rows with. Drawn once here, used by app.js. -->
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="kind-show" viewBox="0 0 24 24">
+      <path d="M8 3l4 5 4-5"/>
+      <rect x="3" y="8" width="18" height="12" rx="2.2"/>
+      <rect x="5.6" y="10.5" width="9.2" height="7" rx="1.2"/>
+      <path d="M18 12h.01M18 15.4h.01M7 20v1.6M17 20v1.6"/>
+    </symbol>
+    <symbol id="kind-movie" viewBox="0 0 24 24">
+      <rect x="3" y="11" width="18" height="10" rx="1.5"/>
+      <path d="M3.2 7.8 19.9 4l.7 3.2L3.9 11z"/>
+      <path d="m6.5 7 3.2 2.7m1.8-3.8 3.2 2.6m1.9-3.7 3.2 2.6"/>
+    </symbol>
+  </svg>
+
+  <dialog id="req-dialog" class="sheet req-sheet" aria-labelledby="req-title">
+    <form method="dialog" class="sheet-close-form">
+      <button class="icon-btn" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </form>
+    <div class="sheet-head">
+      <h2 id="req-title">Request status</h2>
+    </div>
+    <p id="req-updated" class="muted small" role="status" aria-live="polite" hidden></p>
+    <div id="req-tabs" class="req-tabs" role="group" aria-label="What to show" hidden>
+      <button id="req-tab-requests" class="req-tab" type="button" aria-pressed="true">Requests</button>
+      <button id="req-tab-coming" class="req-tab" type="button" aria-pressed="false">Coming up</button>
+    </div>
+    <div id="req-search-wrap" class="search req-search" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input id="req-search" type="search" placeholder="Search your requests" autocomplete="off" aria-label="Search your requests">
+    </div>
+    <p id="req-banner" class="req-banner" role="status" hidden></p>
+    <p id="req-setup-note" class="muted small" hidden>To include Coming up and episode/download details, <a href="/manage.html">edit this Seerr connection in Administration</a> and connect Sonarr for shows and Radarr for movies.</p>
+    <p id="req-nomatch" class="muted" hidden>No titles match that.</p>
+    <ul id="req-list" class="req-list" tabindex="0" aria-label="Media titles"></ul>
+    <p id="req-empty" class="muted" hidden></p>
+    <p id="req-admin" class="req-admin small" hidden></p>
+    <div class="req-foot">
+      <button id="req-refresh" class="btn secondary" type="button">Refresh now</button>
+    </div>
+  </dialog>
+
+  <dialog id="ebooks-dialog" class="sheet ebook-sheet" aria-labelledby="ebooks-title">
+    <form method="dialog" class="sheet-close-form">
+      <button class="icon-btn" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </form>
+    <div class="sheet-head"><h2 id="ebooks-title">Ebooks</h2></div>
+    <p class="muted ebook-help">Search for a book, then tap Download. When it finishes, tap the file to open it in your reading app.</p>
+    <div id="ebooks-search-wrap" class="search req-search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input id="ebooks-search" type="search" placeholder="Search books or authors" autocomplete="off" aria-label="Search books or authors">
+    </div>
+    <p id="ebooks-banner" class="req-banner" role="status" hidden></p>
+    <div id="ebooks-paging" class="req-foot" role="group" aria-label="Book pages" hidden>
+      <button id="ebooks-prev" class="btn secondary" type="button">Previous</button>
+      <span id="ebooks-page" class="muted small" role="status" aria-live="polite"></span>
+      <button id="ebooks-next" class="btn secondary" type="button">Next</button>
+    </div>
+    <p id="ebooks-nomatch" class="muted" role="status" hidden>No books match that search.</p>
+    <p id="ebooks-empty" class="muted" hidden></p>
+    <ul id="ebooks-list" class="ebook-list" tabindex="0" aria-label="Book titles"></ul>
+    <div class="req-foot">
+      <span id="ebooks-updated" class="muted small" role="status" aria-live="polite"></span>
+      <button id="ebooks-refresh" class="btn secondary" type="button">Refresh</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <template id="tile-tpl">
+    <article class="tile">
+      <a class="tile-link" target="_blank" rel="noopener">
+        <span class="tile-icon"><img alt="" width="52" height="52" loading="lazy"><span class="tile-letter" aria-hidden="true"></span></span>
+        <span class="tile-text">
+          <span class="tile-name"></span>
+          <span class="tile-desc"></span>
+          <span class="tile-note" hidden></span>
+        </span>
+      </a>
+      <div class="tile-foot">
+        <span class="status"><span class="dot"></span><span class="status-text"></span></span>
+        <button class="report" type="button" hidden>Not working?</button>
+        <button class="get-app" type="button" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+          App instructions
+        </button>
+        <a class="get-app add-home" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 9v6M9 12h6"/></svg>
+          Add to home screen
+        </a>
+      </div>
+      <div class="tile-extra" hidden>
+        <button class="req-open" type="button">
+          <svg class="req-open-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span class="req-open-text">
+            <span class="req-open-title">Request status</span>
+            <span class="req-open-sub">Ready to watch, and what's coming</span>
+          </span>
+          <svg class="req-open-go" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+      </div>
+    </article>
+  </template>
+</body>
+</html>

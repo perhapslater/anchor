@@ -1,0 +1,104 @@
+name: Build and publish image
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  # Weekly rebuild so Go and Debian security fixes reach the image even when
+  # nothing in the repo changed. Mondays 09:17 UTC (early morning in New York).
+  schedule:
+    - cron: "17 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Third-party actions are pinned to exact commit SHAs so a moved or hijacked
+# tag upstream can't change what runs here. Dependabot
+# (.github/dependabot.yml) opens a pull request when a new version comes out.
+
+jobs:
+  # Scans Anchor for known vulnerabilities that its code can actually reach.
+  # Runs separately so a finding never blocks the rebuild that might fix it;
+  # GitHub emails you when this job fails.
+  vulncheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: stable
+          cache: false
+
+      - name: govulncheck
+        run: go run golang.org/x/vuln/cmd/govulncheck@v1.8.0 ./...
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: stable
+          cache: false
+
+      - name: Test
+        run: go vet ./... && go test ./... && CGO_ENABLED=1 go test -race ./...
+
+      - name: Frontend and service worker regressions
+        run: node --test --test-timeout=5000 tests/*.test.cjs
+
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Image tags
+        id: meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=sha,format=short
+
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        id: image
+        with:
+          context: .
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Explicitly retain package inventory and resolved build materials
+          # with the registry artifact. Build arguments must never hold secrets.
+          sbom: true
+          provenance: mode=max
+          build-args: VERSION=${{ github.ref_name }}-${{ github.sha }}
+          # Always fetch the newest base images. The weekly rebuild also
+          # skips the build cache so Debian's security updates get installed.
+          pull: true
+          no-cache: ${{ github.event_name == 'schedule' }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Record immutable image identity
+        if: github.event_name != 'pull_request'
+        env:
+          IMAGE_DIGEST: ${{ steps.image.outputs.digest }}
+          IMAGE_NAME: ghcr.io/${{ github.repository }}
+          SOURCE_REVISION: ${{ github.sha }}
+        run: |
+          printf '### Built image\n\n`%s@%s`\n\nSource: `%s`\n\nCompiler details are in the Docker build record; resolved bases and package inventory are in the registry provenance/SBOM. Review the separate vulnerability job before installing this image.\n' "$IMAGE_NAME" "$IMAGE_DIGEST" "$SOURCE_REVISION" >> "$GITHUB_STEP_SUMMARY"

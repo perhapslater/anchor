@@ -1,0 +1,101 @@
+# LEGACY PARSER / TEST FIXTURE. The current server stores settings and accounts
+# in SQLite; it does not load or watch /config/anchor.yaml. Use Administration
+# to change settings and examples/dashboard.yaml for the current schema-versioned
+# import format. This legacy shape includes people records and cannot be
+# imported directly into the current application.
+
+title: Anchor
+subtitle: Everything we run at home, in one place
+contact: the Anchor admin    # shown as "Ask <contact> for help"
+check_interval: 60s          # how often each app is checked (red ones: every 10s)
+
+# Optional banner at the top of the page. Leave it out (or delete it) for no
+# banner. Either a plain line of text:
+#   notice: "Plex is down for maintenance tonight from 9 to 10pm."
+# or, to pick a style and who sees it:
+#   notice:
+#     message: "Plex is down for maintenance tonight from 9 to 10pm."
+#     style: warning        # info (blue, default) or warning (amber)
+#     access: [family]      # optional: groups/stable user IDs; default is everyone
+
+# Optional: alerts to your phone through ntfy. With this set, Anchor sends a
+# notification when an app goes down and when it comes back, and adds a
+# "Not working?" button so family can tell you about a problem.
+# Set the ntfy access token in Administration > Notifications > ntfy connection, never in YAML.
+#   notify:
+#     server: https://ntfy.your-tailnet.ts.net
+#     topic: anchor_alert
+#     alerts: true          # down/back alerts (default true)
+#     reports: true         # "Not working?" button (default true)
+
+# Optional: a "Request status" section on one tile (normally Seerr's), where
+# the family can see whether what they asked for is ready to watch, coming on
+# a date, or downloading. Anchor asks Seerr, Plex, Sonarr and Radarr. Sonarr
+# and Radarr are optional. Set credentials in Administration > Notifications > ntfy connection,
+# never in YAML. Only people who can see the tile get the section.
+#   requests:
+#     app: seerr                        # the id of the tile (its name in lower case)
+#     seerr: http://192.168.1.10:5055
+#     plex: http://192.168.1.10:32400
+#     sonarr: http://192.168.1.10:8989  # optional
+#     radarr: http://192.168.1.10:7878  # optional
+
+# Optional: a searchable ebook catalog on one app tile. Anchor reads the
+# Audiobookshelf library directly, including books that were not requested in
+# Shelfarr, and keeps the API key on the server. Create an Audiobookshelf API
+# key for a user who can read and download from this library, then put it in
+# Administration > Notifications > ntfy connection (never in YAML).
+#   ebooks:
+#     app: ebooks                     # the id of the tile below
+#     server: https://audiobookshelf.your-tailnet.ts.net
+#     library_id: your-library-id     # from the /library/<id> part of the URL
+
+# Sections appear in this order. Apps with a section not listed here go last.
+sections: [Photos, Media, Admin]
+
+# Legacy accounts used by parser tests, keyed by Tailscale login email.
+# Current accounts and Tailscale links are managed in Administration > Users;
+# they cannot be created or replaced through dashboard YAML imports. Groups are
+# labels assigned there and used in app access lists.
+people:
+  alex@example.com:
+    name: Alex
+    groups: [admin, family]
+  sam@example.com:
+    name: Sam
+    groups: [family]
+
+apps:
+  # The ebook catalog opens when the tile id matches ebooks.app above:
+  # - name: Ebooks
+  #   url: https://audiobookshelf.your-tailnet.ts.net/
+  #   description: Search the library and download an ebook
+  #   section: Books
+  #   icon: audiobookshelf
+  #   access: [family]
+  - name: Immich
+    url: https://photos.your-tailnet.ts.net/
+    description: Our photos and videos
+    section: Photos
+    icon: immich               # a name from https://dashboard-icons.dev, a file in /config/icons, or a URL
+    access: [family]           # groups, emails, or "everyone"
+    mobile:                    # optional "Get the app" helper
+      ios: https://apps.apple.com/us/app/immich/id1613945652
+      android: https://play.google.com/store/apps/details?id=app.alextran.immich
+      # Optional installed-app launch targets. When present, mobile users get
+      # an Open button; if the app doesn't open, Anchor falls back to its store.
+      # ios_app: example://
+      # android_app: intent://open#Intent;scheme=example;package=example.app;end
+      # open_label: Open Example
+      note: Open the app and paste this as the server address.
+
+  - name: ntfy
+    url: https://ntfy.your-tailnet.ts.net/
+    description: Server alerts
+    section: Admin
+    access: [admin]
+    # check: http://192.168.1.10:8090   # optional: check this address instead of url
+    # check: off                         # optional: no status dot for this app
+    # maintenance: "Being upgraded, back tonight"   # optional: grey out the tile with this message
+    # alerts: false                      # optional: no down/back alerts for this app
+    # homescreen: false                  # optional: no "Add to home screen" button for this app

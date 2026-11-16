@@ -1,0 +1,852 @@
+{
+  "repository": "https://github.com/homarr-labs/dashboard-icons",
+  "revision": "d767d7327db7f8ebd3715b552523f61889eea41c",
+  "assets": [
+    {
+      "file": "web/icons/actual-budget.png",
+      "upstream": "png/actual-budget.png",
+      "sha256": "c841b0309b3d3c32165de2c14d3f13e9ea7cab39d5b489199abf35768578be72",
+      "bytes": 20478
+    },
+    {
+      "file": "web/icons/actual-budget.svg",
+      "upstream": "svg/actual-budget.svg",
+      "sha256": "6ec6621a8d0b69f622ff10d7f957a229f959d94d4bc8c5e3586aebe71c922407",
+      "bytes": 773
+    },
+    {
+      "file": "web/icons/adguard-home.png",
+      "upstream": "png/adguard-home.png",
+      "sha256": "20544244de6032a2c47aad16acdc34bd33958c2e79eec173a2c5b90e4165c298",
+      "bytes": 20385
+    },
+    {
+      "file": "web/icons/adguard-home.svg",
+      "upstream": "svg/adguard-home.svg",
+      "sha256": "4a65b23ae16bf700f35139e2c10a5f731a32530f2db832abd5612be2523b1f9f",
+      "bytes": 672
+    },
+    {
+      "file": "web/icons/audiobookshelf.png",
+      "upstream": "png/audiobookshelf.png",
+      "sha256": "369cad08ad87c79ab8c65d381e19341114388f0519f8469c34220e04d5d1fc9d",
+      "bytes": 33163
+    },
+    {
+      "file": "web/icons/audiobookshelf.svg",
+      "upstream": "svg/audiobookshelf.svg",
+      "sha256": "48a539c267b88e3898f8e127dacef04e6625a5e99f8d334c392a8aa65668a8e8",
+      "bytes": 1775
+    },
+    {
+      "file": "web/icons/authelia.png",
+      "upstream": "png/authelia.png",
+      "sha256": "cedf258c37f6911aed8c178d58e850f342cbad6636d4dbd767b834d667ff8b4e",
+      "bytes": 42240
+    },
+    {
+      "file": "web/icons/authelia.svg",
+      "upstream": "svg/authelia.svg",
+      "sha256": "a6989382bc0a862524445cb4e347bd480bcc0405c1bcc5642e43b6b230000d51",
+      "bytes": 3524
+    },
+    {
+      "file": "web/icons/authentik.png",
+      "upstream": "png/authentik.png",
+      "sha256": "611196ffafc5aedfdd945855e246054393888c60efbb10a30ff5884d90351c09",
+      "bytes": 14339
+    },
+    {
+      "file": "web/icons/authentik.svg",
+      "upstream": "svg/authentik.svg",
+      "sha256": "ccee0489803413294b901233fd6c41a317ad38332927cb1a8464c692543eaa7d",
+      "bytes": 2005
+    },
+    {
+      "file": "web/icons/bazarr.png",
+      "upstream": "png/bazarr.png",
+      "sha256": "527cc305b55657ea1db17de9d962be6611a09b3f1972b125b68a3eb3b1529e45",
+      "bytes": 26445
+    },
+    {
+      "file": "web/icons/bazarr.svg",
+      "upstream": "svg/bazarr.svg",
+      "sha256": "b42777ee622ddf85ace15dbe9a70d471a2ca364e745c73ea467da3a0a7586162",
+      "bytes": 1121
+    },
+    {
+      "file": "web/icons/beszel.png",
+      "upstream": "png/beszel.png",
+      "sha256": "9d575c3d4cbd9361570feffb79fae62865fd91b3d500d054387e8b37774f62e6",
+      "bytes": 30842
+    },
+    {
+      "file": "web/icons/beszel.svg",
+      "upstream": "svg/beszel.svg",
+      "sha256": "ee02dbbb1471cca0f4cce67502307f7c8e6ae4dd55ae1b247382cf1c978c1036",
+      "bytes": 1139
+    },
+    {
+      "file": "web/icons/caddy.png",
+      "upstream": "png/caddy.png",
+      "sha256": "59a77114825e8b2760479ba3eea5b176af96eea9afa5b0150515c4b7c2099c96",
+      "bytes": 31928
+    },
+    {
+      "file": "web/icons/caddy.svg",
+      "upstream": "svg/caddy.svg",
+      "sha256": "c59f2d66b5c4038625a38b19e9d27de63d639dc80e56865ff8f92d7d4da3941f",
+      "bytes": 3363
+    },
+    {
+      "file": "web/icons/calibre-web.png",
+      "upstream": "png/calibre-web.png",
+      "sha256": "b16c4cfe72b2aac2fde310c8c0c6f2b37b019db49d724f7d55d22179480f2eae",
+      "bytes": 17407
+    },
+    {
+      "file": "web/icons/calibre-web.svg",
+      "upstream": "svg/calibre-web.svg",
+      "sha256": "55efda1bd6ea1d326444ce78f66abe29ef73ec0029ebcc669ec9277afc9abe6c",
+      "bytes": 1047
+    },
+    {
+      "file": "web/icons/deluge.png",
+      "upstream": "png/deluge.png",
+      "sha256": "5b9095850bc4ec9857d8f7be1326b87b3d18a2e47c00f865130136cfdef704d4",
+      "bytes": 34912
+    },
+    {
+      "file": "web/icons/deluge.svg",
+      "upstream": "svg/deluge.svg",
+      "sha256": "085a9f9b428c05b723e4efe8f5e17ca427ba8f9e51d6805c604c03fa5bce418a",
+      "bytes": 795
+    },
+    {
+      "file": "web/icons/docker.png",
+      "upstream": "png/docker.png",
+      "sha256": "5315f36c25d54e819a479b7655c9f883c727c74d934fd3cceccb9419f5ba26bd",
+      "bytes": 13041
+    },
+    {
+      "file": "web/icons/docker.svg",
+      "upstream": "svg/docker.svg",
+      "sha256": "7de45e1ea203da32a040c257f47cd39a5711b3a200d27ec72dbccbc5efb1590b",
+      "bytes": 608
+    },
+    {
+      "file": "web/icons/dockge.png",
+      "upstream": "png/dockge.png",
+      "sha256": "f763961f6acb2bbb8824c502c1fc8bf332c0f7cb701f70856d6047213cbfd1b9",
+      "bytes": 28288
+    },
+    {
+      "file": "web/icons/dockge.svg",
+      "upstream": "svg/dockge.svg",
+      "sha256": "4dcfbb809d53312b298f81b6aca730ebc196c45b5e198be55931255d3a95dba8",
+      "bytes": 918
+    },
+    {
+      "file": "web/icons/dozzle.png",
+      "upstream": "png/dozzle.png",
+      "sha256": "44e47600d22908c56581f4503f885edb6682af64a6aab23a3e02a8ee88ce61b2",
+      "bytes": 16058
+    },
+    {
+      "file": "web/icons/dozzle.svg",
+      "upstream": "svg/dozzle.svg",
+      "sha256": "55486bbdb0ef7e2dd83f85bb10d0f732a92f70d83e714953d883bc77b611a77a",
+      "bytes": 5577
+    },
+    {
+      "file": "web/icons/emby.png",
+      "upstream": "png/emby.png",
+      "sha256": "12c420023fd1f4e4738c4f43cb96b8bad0abb95f4b652261f5c8ec45006e71c2",
+      "bytes": 9183
+    },
+    {
+      "file": "web/icons/emby.svg",
+      "upstream": "svg/emby.svg",
+      "sha256": "9f449dcbb77831d962953203e699b69cb5a5636c9803b2e8e1437f6224740a19",
+      "bytes": 345
+    },
+    {
+      "file": "web/icons/filebrowser.png",
+      "upstream": "png/filebrowser.png",
+      "sha256": "f5f62aec54286a16f33c8505ae9f2025ee369eeb786ee5512a639d01d40f0044",
+      "bytes": 25273
+    },
+    {
+      "file": "web/icons/filebrowser.svg",
+      "upstream": "svg/filebrowser.svg",
+      "sha256": "9d945ef0e894fe8e907c23ade4d2912ec3c8b738fc4c0f53c3f6a9126715493e",
+      "bytes": 2412
+    },
+    {
+      "file": "web/icons/forgejo.png",
+      "upstream": "png/forgejo.png",
+      "sha256": "78cb8ed6d2997637e230b636b50adc70fc70968c76b25c9070ed14c6c837e3e9",
+      "bytes": 14765
+    },
+    {
+      "file": "web/icons/forgejo.svg",
+      "upstream": "svg/forgejo.svg",
+      "sha256": "ac5a9b943ffa2b0b305a4ea21dd8b7564c8a8ecc08d2e3d61274f7e61973e7a5",
+      "bytes": 585
+    },
+    {
+      "file": "web/icons/freshrss.png",
+      "upstream": "png/freshrss.png",
+      "sha256": "d51407333a7bdc8db626d6d0e60186477bfd4ca722fdea815c2e18099a43acce",
+      "bytes": 27016
+    },
+    {
+      "file": "web/icons/freshrss.svg",
+      "upstream": "svg/freshrss.svg",
+      "sha256": "c9fed1ab6f9e271538e041ff3f70117bf01cec9c162239534fb6a7b6bfa1c2b5",
+      "bytes": 550
+    },
+    {
+      "file": "web/icons/frigate.png",
+      "upstream": "png/frigate.png",
+      "sha256": "87642cfb03d902abd90c2f979e3654e406b4a9725e4f6b8f71ce33391ce5c3db",
+      "bytes": 9351
+    },
+    {
+      "file": "web/icons/frigate.svg",
+      "upstream": "svg/frigate.svg",
+      "sha256": "2c1176a6af586e7bd149fb318c226dc863033bf188d079f6aa823cbffcd74c93",
+      "bytes": 758
+    },
+    {
+      "file": "web/icons/gitea.png",
+      "upstream": "png/gitea.png",
+      "sha256": "25eeae6e20f78b4c25231c1d76f03ea818cb5a5a88261f1e4c7ea95b1af699da",
+      "bytes": 34939
+    },
+    {
+      "file": "web/icons/gitea.svg",
+      "upstream": "svg/gitea.svg",
+      "sha256": "6e2da0b8fbd4e0eec778714f5009361eb0a339967e06d265f3d7d0d50418d7c7",
+      "bytes": 2174
+    },
+    {
+      "file": "web/icons/grafana.png",
+      "upstream": "png/grafana.png",
+      "sha256": "e352637972078c6b2ed7395992a08b002f20b2fba522f3c34bc52946b27475d8",
+      "bytes": 26391
+    },
+    {
+      "file": "web/icons/grafana.svg",
+      "upstream": "svg/grafana.svg",
+      "sha256": "8f32897073ee93594ab2339482ef21ca3767044055da89e2baf9066d25592df7",
+      "bytes": 4233
+    },
+    {
+      "file": "web/icons/homarr.png",
+      "upstream": "png/homarr.png",
+      "sha256": "8b6b10432faef2a32d776835b8f003ff1478ab1190644dbd5ad401fc21d3c2f7",
+      "bytes": 29739
+    },
+    {
+      "file": "web/icons/homarr.svg",
+      "upstream": "svg/homarr.svg",
+      "sha256": "8de597a0eb1cf186a0bc2f274ea4f15055bd25dadceabb81e0ab1b08cfabc73a",
+      "bytes": 1236
+    },
+    {
+      "file": "web/icons/home-assistant.png",
+      "upstream": "png/home-assistant.png",
+      "sha256": "6582fff08db75b5fb11d5133145a1c009d5fa1d6940789330a638f234e852cbe",
+      "bytes": 12821
+    },
+    {
+      "file": "web/icons/home-assistant.svg",
+      "upstream": "svg/home-assistant.svg",
+      "sha256": "146b366b8c09502742025c4bca4e029e8e4a1b277db837d59a23b93940ebe0e0",
+      "bytes": 879
+    },
+    {
+      "file": "web/icons/homebridge.png",
+      "upstream": "png/homebridge.png",
+      "sha256": "c405456e55444641ea454d9ef189912672b3ca4715ca46aa8ad2fbd2ff623c0c",
+      "bytes": 48749
+    },
+    {
+      "file": "web/icons/homebridge.svg",
+      "upstream": "svg/homebridge.svg",
+      "sha256": "02c1067e36b059869ea2f19a9bfdea5c4e03731c7f1f9a1701a01848ff94cb62",
+      "bytes": 1952
+    },
+    {
+      "file": "web/icons/homepage.png",
+      "upstream": "png/homepage.png",
+      "sha256": "8973bb95a4062acf4d8144fa7447f15a97c163f0514b53a69c83d47f29e63027",
+      "bytes": 11930
+    },
+    {
+      "file": "web/icons/huntarr.png",
+      "upstream": "png/huntarr.png",
+      "sha256": "564df9c64615f44cc08e264786288c0db65a2bcf697fc206c855fc71f0ee0b58",
+      "bytes": 189872
+    },
+    {
+      "file": "web/icons/immich.png",
+      "upstream": "png/immich.png",
+      "sha256": "3ab52ec3b143932f52492fc7bf60ce7f56b0247bb5707f5d3d7a4f3a6417f2c9",
+      "bytes": 26240
+    },
+    {
+      "file": "web/icons/immich.svg",
+      "upstream": "svg/immich.svg",
+      "sha256": "a5d4a43899e63ffc7e97246034f7f63cdfdc410aa803c5713d545290601c4d89",
+      "bytes": 1172
+    },
+    {
+      "file": "web/icons/it-tools.png",
+      "upstream": "png/it-tools.png",
+      "sha256": "4a6feb237ef6a24abf1391809c5121f5d5aa852efa4144cbed3e33546c11fee7",
+      "bytes": 26075
+    },
+    {
+      "file": "web/icons/it-tools.svg",
+      "upstream": "svg/it-tools.svg",
+      "sha256": "f29068eb90c8f43d68517e98259cd1a0a63eab74bbeb92ad47d62ba47dd81930",
+      "bytes": 6892
+    },
+    {
+      "file": "web/icons/jellyfin.png",
+      "upstream": "png/jellyfin.png",
+      "sha256": "2e45c7bb04b1fdbc70737be1676c73bcfbe98dcd9f72dcd063196c7075c65b37",
+      "bytes": 45631
+    },
+    {
+      "file": "web/icons/jellyfin.svg",
+      "upstream": "svg/jellyfin.svg",
+      "sha256": "7f53cf083dbb3119ec8c5acbd8049c5033227617e461540f70591ac109124306",
+      "bytes": 896
+    },
+    {
+      "file": "web/icons/jellyseerr.png",
+      "upstream": "png/jellyseerr.png",
+      "sha256": "d3e5e5058a3e5c924107691445d91d7a9d8a09cba7003deb87c3c08006738b07",
+      "bytes": 61086
+    },
+    {
+      "file": "web/icons/jellyseerr.svg",
+      "upstream": "svg/jellyseerr.svg",
+      "sha256": "536b303e73d5e67d52af58583357acd80cc65050d5114ad2fbf5f38414ee1c3a",
+      "bytes": 5836
+    },
+    {
+      "file": "web/icons/kavita.png",
+      "upstream": "png/kavita.png",
+      "sha256": "c066f9f373a55f68610ad785e092370f2af6054ca8ca573bd67737dadd531607",
+      "bytes": 17611
+    },
+    {
+      "file": "web/icons/kavita.svg",
+      "upstream": "svg/kavita.svg",
+      "sha256": "f03ab7420b8b36ad6b43e88723f794d76c411f728fb020fbeee470f6e1e7696b",
+      "bytes": 1996
+    },
+    {
+      "file": "web/icons/komga.png",
+      "upstream": "png/komga.png",
+      "sha256": "1b9df9697107c27cd89d75bfa73f800b3129ab522d686544f8b568d6ad2b4f45",
+      "bytes": 45737
+    },
+    {
+      "file": "web/icons/komga.svg",
+      "upstream": "svg/komga.svg",
+      "sha256": "3db326796a5b019a7b65e8682588d039726fd0e820896565cc8af6dc1a0c9242",
+      "bytes": 2019
+    },
+    {
+      "file": "web/icons/lidarr.png",
+      "upstream": "png/lidarr.png",
+      "sha256": "6705cd00457fe295d19ca0b08654cf827f5e207074fc7e4c8182a6d5cae65b7c",
+      "bytes": 72205
+    },
+    {
+      "file": "web/icons/lidarr.svg",
+      "upstream": "svg/lidarr.svg",
+      "sha256": "2f55f69450a0ca03621e87550e81ec0f6798c4a578b54e4b988a9a7234a83647",
+      "bytes": 43360
+    },
+    {
+      "file": "web/icons/linkwarden.png",
+      "upstream": "png/linkwarden.png",
+      "sha256": "348a74061ce407bf1dee41ebc74b2b48cbca7060a807556e15147ba380afb68e",
+      "bytes": 191265
+    },
+    {
+      "file": "web/icons/maintainerr.png",
+      "upstream": "png/maintainerr.png",
+      "sha256": "c758120049796bfe65c5031d1d0ccbce1355a4c1530bf4b638e38aa0b6a2d293",
+      "bytes": 46941
+    },
+    {
+      "file": "web/icons/maintainerr.svg",
+      "upstream": "svg/maintainerr.svg",
+      "sha256": "c133012c0f7dad14c66a9856c2df980ccc104345e42873c0768486349bde5841",
+      "bytes": 68637
+    },
+    {
+      "file": "web/icons/mealie.png",
+      "upstream": "png/mealie.png",
+      "sha256": "42ae06e9b93b67d7af240d483486d8e00a0dbd8f5decd0d07908f2ad6a368cea",
+      "bytes": 20383
+    },
+    {
+      "file": "web/icons/mealie.svg",
+      "upstream": "svg/mealie.svg",
+      "sha256": "1c151eab85047a0d71f128606614419126af5c10e5ac09112cdc1033b61a833f",
+      "bytes": 1238
+    },
+    {
+      "file": "web/icons/mosquitto.png",
+      "upstream": "png/mosquitto.png",
+      "sha256": "42b2e87a72eec7609f6f09c40318f7ef5c5166ca7895901480d4118fc83b280f",
+      "bytes": 46943
+    },
+    {
+      "file": "web/icons/mosquitto.svg",
+      "upstream": "svg/mosquitto.svg",
+      "sha256": "f339cedd619dc2a39a8153cc687fd0272e219108a3b86456543553f6531ea0d5",
+      "bytes": 1510
+    },
+    {
+      "file": "web/icons/n8n.png",
+      "upstream": "png/n8n.png",
+      "sha256": "0c9cc73033e12ab253d85ad58d067d0546f82c0b82621528a47e32ece40d8361",
+      "bytes": 35071
+    },
+    {
+      "file": "web/icons/n8n.svg",
+      "upstream": "svg/n8n.svg",
+      "sha256": "45b282108f60b12df6cba68e3fa633d56970eab4d2ac6b1eef43a60b5ea29af5",
+      "bytes": 1248
+    },
+    {
+      "file": "web/icons/navidrome.png",
+      "upstream": "png/navidrome.png",
+      "sha256": "db74f277facdac14c0161ad4bcd80c38e5d09785a8b6c93c20ba7806879a7ca9",
+      "bytes": 38647
+    },
+    {
+      "file": "web/icons/navidrome.svg",
+      "upstream": "svg/navidrome.svg",
+      "sha256": "cd8911581c1173c0696dadaeb02f9bb2eb1ff3b6bdf5c64c49b90f7cb70274cf",
+      "bytes": 1141
+    },
+    {
+      "file": "web/icons/nextcloud.png",
+      "upstream": "png/nextcloud.png",
+      "sha256": "76255228d7ad2eb781b509a868fe054e32f18afc875ed80c3e986da2c9366e11",
+      "bytes": 37178
+    },
+    {
+      "file": "web/icons/nextcloud.svg",
+      "upstream": "svg/nextcloud.svg",
+      "sha256": "892404c0c7c74cb22d6c728e967fcf5cb680f7d343db1cdfef92186d44cce6d3",
+      "bytes": 739
+    },
+    {
+      "file": "web/icons/nginx-proxy-manager.png",
+      "upstream": "png/nginx-proxy-manager.png",
+      "sha256": "d7cfc92b0146ad4186bd7ed1abd19158a08b0bf708b30d8a5dd469ce8c397334",
+      "bytes": 48840
+    },
+    {
+      "file": "web/icons/nginx-proxy-manager.svg",
+      "upstream": "svg/nginx-proxy-manager.svg",
+      "sha256": "9add6f0b65996f8f1698f926e3df9f7f9ae01bae9a2e9588954366f36ec9f1da",
+      "bytes": 9130
+    },
+    {
+      "file": "web/icons/node-red.png",
+      "upstream": "png/node-red.png",
+      "sha256": "aa68ed26c141872d04671a0df14e4697bdd5ee42223c5ba083bd4621f21eaa81",
+      "bytes": 17514
+    },
+    {
+      "file": "web/icons/node-red.svg",
+      "upstream": "svg/node-red.svg",
+      "sha256": "6df09ee45c3a7c47cb249d9779b9d6dfa7372ed7b80b4d3d9cfcdcc27dd3ea96",
+      "bytes": 1052
+    },
+    {
+      "file": "web/icons/ntfy.png",
+      "upstream": "png/ntfy.png",
+      "sha256": "787a811e63d73f3eed2467ec306e16944478cecae62f6bc8a2f3f65774bdbc98",
+      "bytes": 29873
+    },
+    {
+      "file": "web/icons/ntfy.svg",
+      "upstream": "svg/ntfy.svg",
+      "sha256": "5e1155b02e8d819eb9024b1244dd636a773930918d88ac917602275fb9c42991",
+      "bytes": 1505
+    },
+    {
+      "file": "web/icons/nzbget.png",
+      "upstream": "png/nzbget.png",
+      "sha256": "10ab7fac4b0adf00527b5275a6dd96913aabf20cf5f71909ab54db3e6cc52f6d",
+      "bytes": 34991
+    },
+    {
+      "file": "web/icons/nzbget.svg",
+      "upstream": "svg/nzbget.svg",
+      "sha256": "c9ab9e58b870efba9d8da5d22d91149183af8094e0a4889a7e7f5384fe018983",
+      "bytes": 1775
+    },
+    {
+      "file": "web/icons/overseerr.png",
+      "upstream": "png/overseerr.png",
+      "sha256": "fe0ca048747082cb892b8a46d6ad605be10e09218a1ce2cc3cc65579123b1ebf",
+      "bytes": 36588
+    },
+    {
+      "file": "web/icons/overseerr.svg",
+      "upstream": "svg/overseerr.svg",
+      "sha256": "73238e3aba8dce63e4ef0fcf37c59759b25155cc36a9adc38e507f4e66bc22fb",
+      "bytes": 1486
+    },
+    {
+      "file": "web/icons/paperless-ngx.png",
+      "upstream": "png/paperless-ngx.png",
+      "sha256": "4aca0e3745c3f630ac5e877974d433c283da9fdc4a404c85b0bc8441c8b904b2",
+      "bytes": 17783
+    },
+    {
+      "file": "web/icons/paperless-ngx.svg",
+      "upstream": "svg/paperless-ngx.svg",
+      "sha256": "ac3f690b151bdf14e16bebea52721178b37ff6198660a1258ec9445eafb2b8d0",
+      "bytes": 629
+    },
+    {
+      "file": "web/icons/pi-hole.png",
+      "upstream": "png/pi-hole.png",
+      "sha256": "643b9218b42875c5eaa37dcfeb5cfe51e81b6ce67e8d931c1567f8218dc1a340",
+      "bytes": 22642
+    },
+    {
+      "file": "web/icons/pi-hole.svg",
+      "upstream": "svg/pi-hole.svg",
+      "sha256": "44944e34a721797c3271cfc6b15dff81cd6fbbf66c7c96da53a34ed39be06ea5",
+      "bytes": 1434
+    },
+    {
+      "file": "web/icons/plex.png",
+      "upstream": "png/plex.png",
+      "sha256": "cf497f6727c4d9146cb7a3fe9e7797c15297f29df12e472eeeca7823e7b34697",
+      "bytes": 13441
+    },
+    {
+      "file": "web/icons/plex.svg",
+      "upstream": "svg/plex.svg",
+      "sha256": "ae6e754dc2644c7ad6b41853cdac75812ccaeed4c2f08fcd88d81e2f3ec01dba",
+      "bytes": 191
+    },
+    {
+      "file": "web/icons/portainer.png",
+      "upstream": "png/portainer.png",
+      "sha256": "1646de351d273d17208db16f573835cf659d65a991583d5a2b3a14fe83856899",
+      "bytes": 5723
+    },
+    {
+      "file": "web/icons/portainer.svg",
+      "upstream": "svg/portainer.svg",
+      "sha256": "5d1e07021683d15ea67225c60975729f4ee0ed380f3a0fb21ffb2ad00eb6e85b",
+      "bytes": 675
+    },
+    {
+      "file": "web/icons/prometheus.png",
+      "upstream": "png/prometheus.png",
+      "sha256": "45777475b7ba27cb1b712b47ada270761d03c9bf81ba3847a8c3ab34c6bbd9ca",
+      "bytes": 22999
+    },
+    {
+      "file": "web/icons/prometheus.svg",
+      "upstream": "svg/prometheus.svg",
+      "sha256": "b8718698ad8afa9ea526a6081f1077f61d974a66b067005469665cfaf88162a6",
+      "bytes": 764
+    },
+    {
+      "file": "web/icons/prowlarr.png",
+      "upstream": "png/prowlarr.png",
+      "sha256": "70fcd5bd642bfe65936e47469497de638efbdeb8d30ea916fdf7f9c743d7e908",
+      "bytes": 56163
+    },
+    {
+      "file": "web/icons/prowlarr.svg",
+      "upstream": "svg/prowlarr.svg",
+      "sha256": "cd7736bcef6550ad853e59d4d7205f96e9db8ae44be957ca5b7eae7046f5bc67",
+      "bytes": 9043
+    },
+    {
+      "file": "web/icons/proxmox.png",
+      "upstream": "png/proxmox.png",
+      "sha256": "0fc53d37b6685c1af5018fa37d15ef02a16883661cefd68f6c62264ddf2bdf8b",
+      "bytes": 28299
+    },
+    {
+      "file": "web/icons/proxmox.svg",
+      "upstream": "svg/proxmox.svg",
+      "sha256": "466d1a13608536479c8bda1168dffeccb5f6d485011e8e0819e7b36e0d83ced9",
+      "bytes": 1196
+    },
+    {
+      "file": "web/icons/qbittorrent.png",
+      "upstream": "png/qbittorrent.png",
+      "sha256": "3d03a2c91440a85ab6879207f90e17a8ff9c9580ae5a26ec3a64b2c2418f7019",
+      "bytes": 59717
+    },
+    {
+      "file": "web/icons/qbittorrent.svg",
+      "upstream": "svg/qbittorrent.svg",
+      "sha256": "dc6a5e20879ad37b6e9367ccc9143fdf90351f40eb08c200cd7d003ff1b1c275",
+      "bytes": 1549
+    },
+    {
+      "file": "web/icons/radarr.png",
+      "upstream": "png/radarr.png",
+      "sha256": "2d1534f87513e2a7a3b699654dfed2ba70f6f65693ed4a015e497315135e2e67",
+      "bytes": 23404
+    },
+    {
+      "file": "web/icons/radarr.svg",
+      "upstream": "svg/radarr.svg",
+      "sha256": "c3d07ecdfab432ca97f26cf01fe06dbfc0993b5cb6093827b3de1c7421a6fb95",
+      "bytes": 778
+    },
+    {
+      "file": "web/icons/readarr.png",
+      "upstream": "png/readarr.png",
+      "sha256": "b96541cd6d3f9ce30f5b4b8f3beb8f01e73d1054bbb015271f0a899394c9e3a0",
+      "bytes": 59263
+    },
+    {
+      "file": "web/icons/readarr.svg",
+      "upstream": "svg/readarr.svg",
+      "sha256": "38ae0e171833f8234278c03a19fe02ef8bdad1cb1c0aa71d23811f096ca0b988",
+      "bytes": 1695
+    },
+    {
+      "file": "web/icons/recyclarr.png",
+      "upstream": "png/recyclarr.png",
+      "sha256": "aa127b63577072ac798bc4a527977380b64c5f1e5b4e87038ed2248f05695129",
+      "bytes": 20616
+    },
+    {
+      "file": "web/icons/recyclarr.svg",
+      "upstream": "svg/recyclarr.svg",
+      "sha256": "515d5954f3b0b55d60529e03467d13678d73391ae3d38a94144d1b26ecd02fd5",
+      "bytes": 4257
+    },
+    {
+      "file": "web/icons/sabnzbd.png",
+      "upstream": "png/sabnzbd.png",
+      "sha256": "451033ee206f6ee040375e59d6e54dbf996e6c483721f631dc09f9d6b384fa8b",
+      "bytes": 11447
+    },
+    {
+      "file": "web/icons/sabnzbd.svg",
+      "upstream": "svg/sabnzbd.svg",
+      "sha256": "1253fd62e310f2c7c436002a7864b8135654a20d36b2177e3900542fcf8497b0",
+      "bytes": 921
+    },
+    {
+      "file": "web/icons/seerr.png",
+      "upstream": "png/seerr.png",
+      "sha256": "a631922a007a104cf79120691f599b56862f285dd765bab0b744da0079a705cc",
+      "bytes": 37813
+    },
+    {
+      "file": "web/icons/seerr.svg",
+      "upstream": "svg/seerr.svg",
+      "sha256": "b12e5dfd641d961cfb68360da33fe28873b95ea9b64c23233d5b87a37cbfa4c4",
+      "bytes": 1975
+    },
+    {
+      "file": "web/icons/sonarr.png",
+      "upstream": "png/sonarr.png",
+      "sha256": "a6d3283d0232b5a0bd0572f3d26edcbe64d07d36f43c3fc28d4f0bc155eaf49a",
+      "bytes": 33627
+    },
+    {
+      "file": "web/icons/sonarr.svg",
+      "upstream": "svg/sonarr.svg",
+      "sha256": "a5debe565281eb16b746d75b9ce72e22f2fb15c19b4f55428fdf62b84be79306",
+      "bytes": 1978
+    },
+    {
+      "file": "web/icons/speedtest-tracker.png",
+      "upstream": "png/speedtest-tracker.png",
+      "sha256": "ca371a83d72c0458c72b70efba02b4471ec462e58387c64915850ae203f51748",
+      "bytes": 61995
+    },
+    {
+      "file": "web/icons/syncthing.png",
+      "upstream": "png/syncthing.png",
+      "sha256": "fb461551f86dde899328d302b7b0bcf3a21447d8c3b567900c96fa1d11c43cf2",
+      "bytes": 33818
+    },
+    {
+      "file": "web/icons/syncthing.svg",
+      "upstream": "svg/syncthing.svg",
+      "sha256": "65d1430f7522bea0507259929f0033d7c62539d14757d7c6f5b62574eb4da2d3",
+      "bytes": 1187
+    },
+    {
+      "file": "web/icons/tailscale.png",
+      "upstream": "png/tailscale.png",
+      "sha256": "0d4ecf4a308786856ee161c914d248a8a22909c1d28999eeb3deac4d7de66e51",
+      "bytes": 16121
+    },
+    {
+      "file": "web/icons/tailscale.svg",
+      "upstream": "svg/tailscale.svg",
+      "sha256": "cfa3645dcf2f595b9219cf8b0a67beced7fb0f025425859820ba044d1041ad98",
+      "bytes": 1185
+    },
+    {
+      "file": "web/icons/tautulli.png",
+      "upstream": "png/tautulli.png",
+      "sha256": "df274012843ef45553b68c0685ba919455ad5545ab121063ce7a170f3b302e56",
+      "bytes": 28487
+    },
+    {
+      "file": "web/icons/tautulli.svg",
+      "upstream": "svg/tautulli.svg",
+      "sha256": "f792a23f20b977aeac135cfc9aceb5589fa27e68160b7a278a539ff83621419c",
+      "bytes": 1050
+    },
+    {
+      "file": "web/icons/traefik.png",
+      "upstream": "png/traefik.png",
+      "sha256": "cff78b36afd96bea5892c79b8f480c9fb2524ac343007a0bcf3f561e88146b5b",
+      "bytes": 30555
+    },
+    {
+      "file": "web/icons/traefik.svg",
+      "upstream": "svg/traefik.svg",
+      "sha256": "2c5f633eb532e02147a12f0e8971222129f52a19d7f29d5354fdbef4a00ed0c7",
+      "bytes": 2188
+    },
+    {
+      "file": "web/icons/transmission.png",
+      "upstream": "png/transmission.png",
+      "sha256": "fd26752d300e11ceeff0bdbbf616dc5c4c37b60b1e525da39dabf938a5d11a25",
+      "bytes": 40508
+    },
+    {
+      "file": "web/icons/transmission.svg",
+      "upstream": "svg/transmission.svg",
+      "sha256": "f834ca2d002afebe8cda5d500512797d4fb97256ad38cdea1c93aea422b874de",
+      "bytes": 7954
+    },
+    {
+      "file": "web/icons/truenas.png",
+      "upstream": "png/truenas.png",
+      "sha256": "c385f8c5d7877b10af3328e1462f722033a9a7258e47b67c5725d75817363909",
+      "bytes": 25587
+    },
+    {
+      "file": "web/icons/truenas.svg",
+      "upstream": "svg/truenas.svg",
+      "sha256": "e827988e1e499a73a751b8953ab390996c33d530fa77fb08921a63b933f66c27",
+      "bytes": 465
+    },
+    {
+      "file": "web/icons/unpackerr.png",
+      "upstream": "png/unpackerr.png",
+      "sha256": "317df483e45cf9235a7584f83aae23250d5b8de53b719d59e90de471a4ddf841",
+      "bytes": 85772
+    },
+    {
+      "file": "web/icons/unraid.png",
+      "upstream": "png/unraid.png",
+      "sha256": "e6fd59b94bb69384d95f3eca7294dc6757569ae14c9e0531b62da0afc2879fd8",
+      "bytes": 9861
+    },
+    {
+      "file": "web/icons/unraid.svg",
+      "upstream": "svg/unraid.svg",
+      "sha256": "b6a4843fbe264b3ae13b3f6e8a906577162b3c081d7ac7f2d54d898a6208d316",
+      "bytes": 624
+    },
+    {
+      "file": "web/icons/uptime-kuma.png",
+      "upstream": "png/uptime-kuma.png",
+      "sha256": "4ee9ec4274e02d63092ddb71da2e71c950abe40dc6be8a88042b566464c0b70c",
+      "bytes": 28995
+    },
+    {
+      "file": "web/icons/uptime-kuma.svg",
+      "upstream": "svg/uptime-kuma.svg",
+      "sha256": "f3caa8a8bac253a77fa2ae7e7bc9b062b55a006abd787b111533714152ec744c",
+      "bytes": 630
+    },
+    {
+      "file": "web/icons/vaultwarden.png",
+      "upstream": "png/vaultwarden.png",
+      "sha256": "01899915e053e08cc24a87ff866641a65b7264aad8b944b47770b97f52845b8a",
+      "bytes": 23148
+    },
+    {
+      "file": "web/icons/vaultwarden.svg",
+      "upstream": "svg/vaultwarden.svg",
+      "sha256": "afa3af723b4de7f502d2cc962352842a5cb41026bb5940a9f970cb5271b9472b",
+      "bytes": 5364
+    },
+    {
+      "file": "web/icons/vikunja.png",
+      "upstream": "png/vikunja.png",
+      "sha256": "f23840d8b656db31db9700098b523fff8825cc6dc25bf467dbbfa5ff7428674e",
+      "bytes": 29010
+    },
+    {
+      "file": "web/icons/vikunja.svg",
+      "upstream": "svg/vikunja.svg",
+      "sha256": "1d360d3537390470b74763d4e444735956c968151e5ab6c4cd8d64dae9a9e5ab",
+      "bytes": 4002
+    },
+    {
+      "file": "web/icons/whisparr.png",
+      "upstream": "png/whisparr.png",
+      "sha256": "ab4ddb887a36778dd918e4366cce917fb486515ce8ac7da0950430dfb00692e6",
+      "bytes": 46482
+    },
+    {
+      "file": "web/icons/whisparr.svg",
+      "upstream": "svg/whisparr.svg",
+      "sha256": "bade8700a5fbed646994197cf4a93533f4ca7113a971ce51bb81f9cf076dc5f8",
+      "bytes": 2338
+    },
+    {
+      "file": "web/icons/wireguard.png",
+      "upstream": "png/wireguard.png",
+      "sha256": "244253df97db0b3c6d3f128308b0630403cb25b676a1d67756cc825da03fdba7",
+      "bytes": 37584
+    },
+    {
+      "file": "web/icons/wireguard.svg",
+      "upstream": "svg/wireguard.svg",
+      "sha256": "900c0e96c80d0afb010fa490cb794de761b39cce26437b1f35a13641cfeb7c89",
+      "bytes": 4328
+    },
+    {
+      "file": "web/icons/zigbee2mqtt.png",
+      "upstream": "png/zigbee2mqtt.png",
+      "sha256": "7ade630bdf24d6a85cc663dcb0b47cc2014a986d0db112b5511af72c5b7f31d8",
+      "bytes": 20009
+    },
+    {
+      "file": "web/icons/zigbee2mqtt.svg",
+      "upstream": "svg/zigbee2mqtt.svg",
+      "sha256": "568295262e4c1abaaf0a2d29f6b0ccc5228ec62a07e8ee6aca88799048a0b45b",
+      "bytes": 9822
+    }
+  ]
+}

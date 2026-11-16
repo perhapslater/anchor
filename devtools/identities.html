@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Test identities · Anchor</title><link rel="icon" href="/brand/anchor.svg"><link rel="stylesheet" href="/__dev/identities.css"><script src="/__dev/identities.js" defer></script></head>
+<body><main class="identity-picker">
+  <p class="eyebrow">Local development</p><h1>Test Tailscale identities</h1>
+  <p>Choose an existing Anchor person. No real Tailscale account or password is needed.</p>
+  <p class="muted">This simulates sign-in headers on localhost. It exercises Anchor's account and permission checks; use <code>.\dev.ps1 -Tailscale</code> to test real Serve and profile photos.</p>
+  <form id="identity-form">
+    <label for="identity">Test identity</label><select id="identity" disabled><option>Loading people…</option></select>
+    <p id="identity-details" class="identity-details"></p>
+    <div class="identity-actions"><button type="submit" class="btn" disabled>Use this identity</button><a href="/" class="btn secondary">Back to Anchor</a></div>
+  </form>
+  <p id="identity-message" role="status"></p>
+  <p class="muted small">Changes you make in Anchor still save to your local development database. The selected identity belongs to this browser session; choose another identity here whenever needed.</p>
+</main></body></html>

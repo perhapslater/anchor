@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Test sign-in and access - Anchor</title>
+    <link rel="icon" href="/brand/anchor.svg" />
+    <link rel="stylesheet" href="/admin.css" />
+    <script src="/tailscale-test-view.js" defer></script>
+    <script src="/tailscale-test.js" defer></script>
+  </head>
+  <body>
+    <header class="admin-top"><div class="admin-brand"><img src="/brand/anchor.svg" alt="" />Anchor</div><nav class="auth-nav"><a href="/">Dashboard</a></nav></header>
+    <main class="tailscale-test-page">
+      <div class="card"><h1>Test sign-in and access</h1><p>Verify that Anchor recognizes your Tailscale account and shows the expected groups and applications.</p>
+        <div id="test-result" class="tailscale-test-report" role="status" aria-live="polite"></div>
+        <div class="actions"><button id="test-again" type="button" class="primary">Test again</button><button id="copy-test-link" type="button" class="secondary">Copy test link</button></div>
+        <p id="test-link-status" class="help" role="status"></p>
+        <details><summary>Need help connecting?</summary><p>Connect this device to Tailscale and use Anchor's full HTTPS address printed by Tailscale Serve, including its port if shown. If that address cannot be reached, check your network access and the server's Serve configuration.</p><p>Tailscale uses the account connected on this device. Another browser profile does not change that identity. Ask your administrator to link your Tailscale email to an enabled Anchor account.</p></details>
+      </div>
+    </main>
+  </body>
+</html>
